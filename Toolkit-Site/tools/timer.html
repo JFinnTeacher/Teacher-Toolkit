@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Countdown Timer • Teacher Toolkit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              accent: "#f97316",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body class="min-h-screen bg-slate-50">
+    <div class="max-w-5xl mx-auto px-4 py-8 md:py-12 space-y-10">
+      <header class="flex flex-wrap items-center justify-between gap-4">
+        <a
+          href="../index.html"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-primary"
+        >
+          ← Back to toolkit
+        </a>
+        <span class="tt-pill">Countdown Timer</span>
+      </header>
+
+      <main class="tt-grid tt-grid-2 gap-8">
+        <section class="tt-surface p-8 space-y-8">
+          <div class="text-center space-y-3">
+            <p class="tt-section-heading">Current countdown</p>
+            <p id="timer-display" class="text-6xl md:text-7xl font-semibold text-dark tracking-tight">
+              00:00
+            </p>
+            <p id="timer-status" class="text-slate-500 text-sm">
+              Choose a preset or enter a custom duration.
+            </p>
+          </div>
+          <div class="flex items-center justify-center">
+            <svg width="280" height="280" viewBox="0 0 200 200" class="drop-shadow-lg">
+              <circle
+                cx="100"
+                cy="100"
+                r="90"
+                stroke="#e2e8f0"
+                stroke-width="14"
+                fill="none"
+              ></circle>
+              <circle
+                id="timer-progress"
+                cx="100"
+                cy="100"
+                r="90"
+                stroke="#2563eb"
+                stroke-width="14"
+                stroke-linecap="round"
+                fill="none"
+                stroke-dasharray="565"
+                stroke-dashoffset="565"
+                transform="rotate(-90 100 100)"
+              ></circle>
+            </svg>
+          </div>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <button
+              class="tt-pill hover:bg-primary hover:text-white transition-all"
+              data-preset="60"
+            >
+              1 min
+            </button>
+            <button class="tt-pill hover:bg-primary hover:text-white transition-all" data-preset="180">
+              3 min
+            </button>
+            <button class="tt-pill hover:bg-primary hover:text-white transition-all" data-preset="300">
+              5 min
+            </button>
+            <button class="tt-pill hover:bg-primary hover:text-white transition-all" data-preset="600">
+              10 min
+            </button>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4 items-end">
+            <label class="text-sm font-medium text-slate-600 space-y-2">
+              Custom minutes
+              <input
+                type="number"
+                id="custom-minutes"
+                min="1"
+                max="120"
+                placeholder="Enter minutes"
+                class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary"
+              />
+            </label>
+            <button
+              id="apply-custom"
+              class="w-full rounded-2xl bg-slate-900/90 text-white font-semibold py-3 hover:bg-slate-900"
+            >
+              Set duration
+            </button>
+          </div>
+          <div class="flex items-center justify-between gap-4 flex-wrap">
+            <label class="inline-flex items-center gap-2 text-sm text-slate-600">
+              <input type="checkbox" id="chime-toggle" class="rounded text-primary" checked />
+              Play chime when finished
+            </label>
+            <div class="flex gap-3">
+              <button
+                id="start-btn"
+                class="rounded-full bg-primary px-6 py-2 text-white font-semibold shadow-glow hover:opacity-90"
+              >
+                Start
+              </button>
+              <button
+                id="pause-btn"
+                class="rounded-full border border-slate-300 px-6 py-2 font-semibold text-slate-700 hover:text-primary"
+              >
+                Pause
+              </button>
+              <button
+                id="reset-btn"
+                class="rounded-full border border-slate-300 px-6 py-2 font-semibold text-slate-700 hover:text-primary"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="tt-surface p-8 space-y-6 tt-prose">
+          <div>
+            <h2 class="text-2xl font-semibold text-dark mb-2">Facilitate smooth transitions</h2>
+            <p>
+              Use presets for common activities like think-pair-share or gallery walks. The timer
+              keeps running even if you click away within the tab, and your last custom duration is
+              remembered locally.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-dark">Teacher tips</h3>
+            <ul class="list-disc pl-5 text-slate-600 space-y-2">
+              <li>Project the timer and narrate expectations at the start of each countdown.</li>
+              <li>Use the progress ring as a quick visual prompt for students who need reminders.</li>
+              <li>Toggle the chime off for silent work sessions or testing environments.</li>
+            </ul>
+          </div>
+          <div class="border border-dashed border-slate-200 rounded-2xl p-4 text-sm text-slate-500">
+            Data never leaves this browser. Timing preferences are saved locally so you can pick up
+            where you left off the next day.
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script src="../assets/js/site.js"></script>
+    <script src="../assets/js/timer.js"></script>
+  </body>
+</html>

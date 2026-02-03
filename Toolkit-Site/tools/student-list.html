@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Questioning List • Teacher Toolkit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              accent: "#f97316",
+              success: "#16a34a",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body class="min-h-screen bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
+      <header class="flex flex-wrap items-center justify-between gap-4">
+        <a
+          href="../index.html"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-primary"
+        >
+          ← Back to toolkit
+        </a>
+        <span class="tt-pill">Student Questioning List</span>
+      </header>
+
+      <main class="tt-grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <section class="tt-surface p-8 space-y-6">
+          <div>
+            <h1 class="text-3xl font-semibold text-dark">Keep questioning equitable</h1>
+            <p class="text-slate-600">
+              Paste a roster or import a CSV to build a randomizer that never repeats until everyone
+              has been called. Track absences and reset the queue when the cycle is complete.
+            </p>
+          </div>
+
+          <form id="roster-form" class="space-y-4">
+            <label class="text-sm font-semibold text-slate-600 space-y-2">
+              Paste names (one per line or comma-separated)
+              <textarea
+                id="roster-input"
+                rows="4"
+                class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary"
+                placeholder="Addison Chen&#10;Evelyn Ortiz&#10;Morgan Patel"
+              ></textarea>
+            </label>
+            <div class="flex flex-wrap gap-3">
+              <button
+                type="submit"
+                class="rounded-2xl bg-primary text-white font-semibold px-5 py-3 shadow-glow hover:opacity-90"
+              >
+                Add to list
+              </button>
+              <label
+                for="csv-input"
+                class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:text-primary cursor-pointer"
+              >
+                Import CSV
+              </label>
+              <input id="csv-input" type="file" accept=".csv,text/csv" class="hidden" />
+              <button
+                type="button"
+                id="clear-roster"
+                class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-rose-500 hover:text-rose-600"
+              >
+                Clear list
+              </button>
+            </div>
+            <p id="roster-feedback" class="text-sm text-primary hidden"></p>
+          </form>
+
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <div class="rounded-2xl bg-slate-50 p-4">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Total</p>
+              <p id="count-total" class="text-2xl font-semibold text-dark">0</p>
+            </div>
+            <div class="rounded-2xl bg-slate-50 p-4">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Ready</p>
+              <p id="count-ready" class="text-2xl font-semibold text-dark">0</p>
+            </div>
+            <div class="rounded-2xl bg-slate-50 p-4">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Asked</p>
+              <p id="count-asked" class="text-2xl font-semibold text-dark">0</p>
+            </div>
+          </div>
+
+          <section class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xl font-semibold text-dark">Roster</h2>
+              <button
+                type="button"
+                id="reset-queue"
+                class="text-sm font-semibold text-primary hover:text-accent disabled:opacity-40"
+              >
+                Reset queue
+              </button>
+            </div>
+            <div
+              id="roster-list"
+              class="max-h-80 overflow-y-auto border border-slate-100 rounded-3xl divide-y divide-slate-100"
+            >
+              <p class="text-sm text-slate-500 p-4">
+                Add students to see them listed with quick actions.
+              </p>
+            </div>
+          </section>
+        </section>
+
+        <aside class="tt-surface p-8 space-y-6">
+          <div>
+            <p class="tt-section-heading">Random selection</p>
+            <p id="current-student" class="text-4xl font-semibold text-dark min-h-[3.5rem]">
+              Add students to begin
+            </p>
+            <p id="selection-note" class="text-sm text-slate-500">
+              No student selected yet.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <button
+              id="select-student"
+              class="flex-1 rounded-2xl bg-slate-900/90 text-white font-semibold py-3 hover:bg-slate-900 disabled:opacity-40"
+            >
+              Select random student
+            </button>
+            <button
+              id="mark-asked"
+              class="rounded-2xl border border-slate-300 px-4 py-3 font-semibold text-slate-700 hover:text-primary disabled:opacity-40"
+              disabled
+            >
+              Mark asked
+            </button>
+            <button
+              id="skip-student"
+              class="rounded-2xl border border-slate-300 px-4 py-3 font-semibold text-slate-700 hover:text-primary disabled:opacity-40"
+              disabled
+            >
+              Skip
+            </button>
+          </div>
+          <div class="rounded-3xl border border-dashed border-slate-200 p-5 space-y-3">
+            <h3 class="text-lg font-semibold text-dark flex items-center gap-2">
+              Selection history
+              <button
+                id="clear-history"
+                class="text-xs font-semibold text-slate-400 hover:text-primary"
+                type="button"
+              >
+                Clear
+              </button>
+            </h3>
+            <ul id="history-list" class="space-y-2 text-sm text-slate-600 max-h-56 overflow-y-auto">
+              <li class="text-slate-500">No selections yet.</li>
+            </ul>
+          </div>
+          <div class="text-sm text-slate-500 border border-slate-200 rounded-2xl p-4">
+            Students marked “asked” won’t appear again until you reset the queue. Absences stay
+            honored until you toggle the student back to “ready.”
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script src="../assets/js/site.js"></script>
+    <script src="../assets/js/studentList.js"></script>
+  </body>
+</html>
