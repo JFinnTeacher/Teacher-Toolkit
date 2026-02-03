@@ -21,6 +21,14 @@
   const currentStudentEl = document.getElementById("current-student");
   const selectionNote = document.getElementById("selection-note");
   const historyList = document.getElementById("history-list");
+  const classSelect = document.querySelector("[data-classlist-select]");
+  const classSaveBtn = document.querySelector("[data-classlist-sync]");
+  const toolkit = window.TeacherToolkit;
+  const classLists = toolkit && toolkit.classLists ? toolkit.classLists : null;
+  const randomId = () =>
+    typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random()}`;
 
   const message = (text, isError = false) => {
     rosterFeedback.textContent = text;
@@ -39,6 +47,21 @@
   let students = Array.isArray(initialStudents) ? initialStudents : [];
   let history = Array.isArray(initialHistory) ? initialHistory : [];
   let currentStudentId = null;
+  let lastClassSelection = "";
+
+  const rosterNamesFromState = () =>
+    Array.from(
+      new Set(
+        students
+          .map((student) => (student.name || "").trim())
+          .filter((name) => name.length > 0),
+      ),
+    );
+
+  const updateSaveButtonState = () => {
+    if (!classSaveBtn) return;
+    classSaveBtn.disabled = !classSelect || !classSelect.value;
+  };
 
   const persist = () => {
     TeacherToolkit.storage.write("studentListRoster", students);
@@ -106,6 +129,7 @@
       currentStudentId = null;
       currentStudentEl.textContent = "Add students to begin";
       selectionNote.textContent = "No student selected yet.";
+      updateSaveButtonState();
       return;
     }
 
@@ -172,6 +196,7 @@
     });
 
     updateCounts();
+    updateSaveButtonState();
   };
 
   const parseNames = (raw) => {
@@ -192,7 +217,7 @@
     names.forEach((name) => {
       if (existingNames.has(name.toLowerCase())) return;
       students.push({
-        id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
+        id: randomId(),
         name,
         status: "ready",
       });
@@ -205,6 +230,83 @@
       message(`Added ${added} ${added === 1 ? "student" : "students"}.`);
     } else {
       message("All of those names were already in the list.");
+    }
+  };
+
+  const ensureClassListExists = (id) => {
+    if (!classLists) return null;
+    const data = classLists.read();
+    return data.lists.find((item) => item.id === id) || null;
+  };
+
+  const loadClassList = (id, { silent = false, skipConfirm = false } = {}) => {
+    if (!classLists || !id) return false;
+    const list = ensureClassListExists(id);
+    if (!list) {
+      message("Selected class list no longer exists.", true);
+      populateClassSelect();
+      return false;
+    }
+    if (!skipConfirm && students.length) {
+      const proceed = window.confirm(
+        "Replace the current roster with the selected class list?",
+      );
+      if (!proceed) {
+        if (classSelect) classSelect.value = lastClassSelection;
+        updateSaveButtonState();
+        return false;
+      }
+    }
+    students = list.students.map((name) => ({
+      id: randomId(),
+      name,
+      status: "ready",
+    }));
+    history = [];
+    currentStudentId = null;
+    persist();
+    renderRoster();
+    renderHistory();
+    selectionNote.textContent = "No student selected yet.";
+    currentStudentEl.textContent = students.length
+      ? "Select a student to begin"
+      : "Add students to begin";
+    if (!silent) {
+      message(
+        `Loaded ${list.students.length} ${list.students.length === 1 ? "student" : "students"} from "${list.name}".`,
+      );
+    }
+    classLists.setLastSelected(id);
+    lastClassSelection = id;
+    updateSaveButtonState();
+    return true;
+  };
+
+  const populateClassSelect = (options = {}) => {
+    if (!classSelect || !classLists) return;
+    const { shouldLoad = false, skipConfirm = false } = options;
+    const data = classLists.read();
+    classSelect.innerHTML = `<option value="">Select a saved class…</option>`;
+    data.lists.forEach((item) => {
+      const option = document.createElement("option");
+      option.value = item.id;
+      option.textContent = `${item.name} (${item.students.length})`;
+      classSelect.appendChild(option);
+    });
+    classSelect.disabled = data.lists.length === 0;
+    const selectedId =
+      data.lastSelectedId && ensureClassListExists(data.lastSelectedId)
+        ? data.lastSelectedId
+        : "";
+    classSelect.value = selectedId;
+    lastClassSelection = selectedId;
+    updateSaveButtonState();
+    if (
+      shouldLoad &&
+      selectedId &&
+      (!students.length || skipConfirm)
+    ) {
+      loadClassList(selectedId, { silent: true, skipConfirm });
     }
   };
 
@@ -247,6 +349,59 @@
     currentStudentEl.textContent = "Selection skipped";
     selectionNote.textContent = "Pick another student when ready.";
   };
+
+  if (classSelect && classLists) {
+    populateClassSelect({ shouldLoad: !students.length, skipConfirm: true });
+
+    classSelect.addEventListener("change", () => {
+      const newId = classSelect.value;
+      if (!newId) {
+        lastClassSelection = "";
+        updateSaveButtonState();
+        return;
+      }
+      const loaded = loadClassList(newId);
+      if (!loaded) {
+        classSelect.value = lastClassSelection;
+      }
+    });
+
+    classSaveBtn?.addEventListener("click", () => {
+      const targetId = classSelect.value;
+      if (!targetId) {
+        message("Select a class list to save into first.", true);
+        return;
+      }
+      const existing = ensureClassListExists(targetId);
+      if (!existing) {
+        message("Class list no longer exists.", true);
+        populateClassSelect();
+        return;
+      }
+      const names = rosterNamesFromState();
+      classLists.saveList({
+        id: existing.id,
+        name: existing.name,
+        students: names,
+      });
+      message(
+        `Saved ${names.length} ${names.length === 1 ? "name" : "names"} to "${existing.name}".`,
+      );
+      updateSaveButtonState();
+    });
+
+    window.addEventListener("classlists:changed", () => {
+      const hadStudents = students.length;
+      populateClassSelect();
+      updateSaveButtonState();
+      const selected = classSelect.value;
+      if (!hadStudents && selected) {
+        loadClassList(selected, { silent: true, skipConfirm: true });
+      }
+    });
+  } else {
+    updateSaveButtonState();
+  }
 
   rosterForm.addEventListener("submit", (event) => {
     event.preventDefault();

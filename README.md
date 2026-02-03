@@ -27,6 +27,12 @@ tools/
 
 Every page loads Tailwind via CDN plus `assets/css/base.css`, meaning brand updates or focus tweaks cascade throughout the toolkit.
 
+## Class lists
+
+- Open the landing page and use **Manage class lists** to create, rename, and edit reusable rosters. Each list is stored locally in the browser (no cloud sync).
+- Inside **Lollypop Questions** and **Student Questioning List** you’ll find a class selector. Choose a saved roster to load it instantly, then push your edits back with **Save roster to list**.
+- The selector links back to the landing page for quick management if you need the full modal while working inside a tool.
+
 ## Local usage
 
 1. Clone the repo and open the workspace in your editor of choice.

@@ -36,10 +36,33 @@
 
   const historyList = document.getElementById("history-list");
   const clearHistoryBtn = document.getElementById("clear-history");
+  const classSelect = document.querySelector("[data-classlist-select]");
+  const classSaveBtn = document.querySelector("[data-classlist-sync]");
+  const toolkit = window.TeacherToolkit;
+  const classLists = toolkit && toolkit.classLists ? toolkit.classLists : null;
+  const randomId = () =>
+    typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random()}`;
 
   let students = [];
   let history = [];
   const round = { responderId: null, questionerId: null };
+  let lastClassSelection = "";
+
+  const rosterNamesFromState = () =>
+    Array.from(
+      new Set(
+        students
+          .map((student) => student.name.trim())
+          .filter((name) => name.length > 0),
+      ),
+    );
+
+  const updateSaveButtonState = () => {
+    if (!classSaveBtn) return;
+    classSaveBtn.disabled = !classSelect || !classSelect.value;
+  };
 
   const setRosterMessage = (message, isError = false) => {
     rosterFeedback.textContent = message;
@@ -59,6 +82,88 @@
       .filter(Boolean);
 
   const getStudent = (id) => students.find((student) => student.id === id) || null;
+
+  const ensureClassListExists = (id) => {
+    if (!classLists) return null;
+    const data = classLists.read();
+    return data.lists.find((item) => item.id === id) || null;
+  };
+
+  const populateClassSelect = (options = {}) => {
+    if (!classSelect || !classLists) return;
+    const { shouldLoad = false, skipConfirm = false } = options;
+    const data = classLists.read();
+    const prevValue = classSelect.value;
+    classSelect.innerHTML = `<option value="">Select a saved class…</option>`;
+    data.lists.forEach((item) => {
+      const option = document.createElement("option");
+      option.value = item.id;
+      option.textContent = `${item.name} (${item.students.length})`;
+      classSelect.appendChild(option);
+    });
+    classSelect.disabled = data.lists.length === 0;
+    const selectedId = data.lastSelectedId && ensureClassListExists(data.lastSelectedId)
+      ? data.lastSelectedId
+      : "";
+    classSelect.value = selectedId;
+    lastClassSelection = selectedId;
+    updateSaveButtonState();
+    if (
+      shouldLoad &&
+      selectedId &&
+      (!students.length || skipConfirm)
+    ) {
+      loadClassList(selectedId, { silent: true, skipConfirm });
+    } else if (!selectedId) {
+      updateSaveButtonState();
+    } else {
+      classSelect.value = selectedId;
+    }
+  };
+
+  const loadClassList = (id, { silent = false, skipConfirm = false } = {}) => {
+    if (!classLists || !id) return false;
+    const list = ensureClassListExists(id);
+    if (!list) {
+      setRosterMessage("Selected class list no longer exists.", true);
+      populateClassSelect();
+      return false;
+    }
+    if (!skipConfirm && students.length) {
+      const proceed = window.confirm(
+        "Replace the current roster with the selected class list?",
+      );
+      if (!proceed) {
+        classSelect.value = lastClassSelection;
+        updateSaveButtonState();
+        return false;
+      }
+    }
+    students = list.students.map((name) => ({
+      id: randomId(),
+      name,
+      status: "active",
+      refusalUsed: false,
+    }));
+    history = [];
+    historyList.innerHTML =
+      '<li data-empty="true" class="text-slate-500">No rounds recorded yet.</li>';
+    resetRound();
+    renderRoster();
+    updateRoundUI();
+    roundStatus.textContent = "Awaiting selections.";
+    if (!silent) {
+      setRosterMessage(
+        `Loaded ${list.students.length} ${
+          list.students.length === 1 ? "student" : "students"
+        } from "${list.name}".`,
+      );
+    }
+    classLists.setLastSelected(id);
+    lastClassSelection = id;
+    updateSaveButtonState();
+    return true;
+  };
 
   const updateCounts = () => {
     const active = students.filter((student) => student.status === "active").length;
@@ -164,6 +269,7 @@
     });
 
     updateCounts();
+    updateSaveButtonState();
   };
 
   const eligibleStudents = (excludeId = null) =>
@@ -288,13 +394,13 @@
     historyList.prepend(item);
   };
 
-  const resetRound = () => {
+  function resetRound() {
     round.responderId = null;
     round.questionerId = null;
     responderNote.textContent = "—";
     questionerNote.textContent = "—";
     updateRoundUI();
-  };
+  }
 
   const resolveRound = (winnerRole) => {
     if (!round.responderId || !round.questionerId) return;
@@ -342,7 +448,7 @@
     names.forEach((name) => {
       if (seen.has(name.toLowerCase())) return;
       students.push({
-        id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
+        id: randomId(),
         name,
         status: "active",
         refusalUsed: false,
@@ -397,6 +503,58 @@
       '<li data-empty="true" class="text-slate-500">No rounds recorded yet.</li>';
     roundStatus.textContent = "History cleared.";
   };
+
+  if (classSelect && classLists) {
+    populateClassSelect({ shouldLoad: true, skipConfirm: true });
+
+    classSelect.addEventListener("change", () => {
+      const newId = classSelect.value;
+      if (!newId) {
+        lastClassSelection = "";
+        updateSaveButtonState();
+        return;
+      }
+      const loaded = loadClassList(newId);
+      if (!loaded) {
+        classSelect.value = lastClassSelection;
+      }
+    });
+
+    classSaveBtn?.addEventListener("click", () => {
+      const targetId = classSelect.value;
+      if (!targetId) {
+        setRosterMessage("Select a class list to save into first.", true);
+        return;
+      }
+      const existing = ensureClassListExists(targetId);
+      if (!existing) {
+        setRosterMessage("Class list no longer exists.", true);
+        populateClassSelect();
+        return;
+      }
+      const names = rosterNamesFromState();
+      classLists.saveList({
+        id: existing.id,
+        name: existing.name,
+        students: names,
+      });
+      setRosterMessage(
+        `Saved ${names.length} ${names.length === 1 ? "name" : "names"} to "${existing.name}".`,
+      );
+      updateSaveButtonState();
+    });
+
+    window.addEventListener("classlists:changed", () => {
+      populateClassSelect();
+      updateSaveButtonState();
+      const selected = classSelect.value;
+      if (!students.length && selected) {
+        loadClassList(selected, { silent: true, skipConfirm: true });
+      }
+    });
+  } else {
+    updateSaveButtonState();
+  }
 
   // Event wiring
   rosterForm.addEventListener("submit", handleFormSubmit);

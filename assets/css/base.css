@@ -4,6 +4,9 @@
   --tt-color-accent: #f97316;
   --tt-color-muted: #f1f5f9;
   --tt-color-surface: #ffffff;
+  --tt-color-text: #0f172a;
+  --tt-color-text-muted: #475569;
+  --tt-color-border: rgba(148, 163, 184, 0.2);
   --tt-radius-lg: 1.25rem;
   --tt-radius-md: 0.75rem;
   --tt-shadow-soft: 0 20px 45px rgba(15, 23, 42, 0.15);
@@ -16,7 +19,7 @@ html {
 body {
   font-family: var(--tt-font-sans);
   background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-  color: #0f172a;
+  color: var(--tt-color-text);
 }
 
 .tt-surface {
@@ -26,7 +29,7 @@ body {
 }
 
 .tt-card-outline {
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--tt-color-border);
 }
 
 .tt-glow {
@@ -69,7 +72,7 @@ body {
   text-transform: uppercase;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #475569;
+  color: var(--tt-color-text-muted);
 }
 
 .tt-gradient-border {
@@ -78,6 +81,13 @@ body {
     linear-gradient(var(--tt-color-surface), var(--tt-color-surface)) padding-box,
     linear-gradient(135deg, rgba(37, 99, 235, 0.5), rgba(249, 115, 22, 0.6)) border-box;
   border-radius: var(--tt-radius-md);
+}
+
+/* Inner cards in the hero “Always in sync” box: translucent so white text stays visible */
+.tt-hero-gradient .tt-gradient-border {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15)) padding-box,
+    linear-gradient(135deg, rgba(37, 99, 235, 0.5), rgba(249, 115, 22, 0.6)) border-box;
 }
 
 .tt-grid {
@@ -97,10 +107,73 @@ body {
 
 .tt-prose p {
   margin-bottom: 1rem;
-  color: #475569;
+  color: var(--tt-color-text-muted);
   max-width: 65ch;
 }
 
 .tt-prose strong {
-  color: #0f172a;
+  color: var(--tt-color-text);
+}
+
+[data-theme="dark"] {
+  --tt-color-surface: #111827;
+  --tt-color-text: #e2e8f0;
+  --tt-color-text-muted: #94a3b8;
+  --tt-color-border: rgba(148, 163, 184, 0.3);
+  --tt-shadow-soft: 0 20px 45px rgba(2, 6, 23, 0.6);
+}
+
+[data-theme="dark"] body {
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  color: var(--tt-color-text);
+}
+
+[data-theme="dark"] .tt-card-outline {
+  border-color: var(--tt-color-border);
+}
+
+[data-theme="dark"] .tt-pill {
+  color: #bfdbfe;
+  border-color: rgba(191, 219, 254, 0.4);
+  background-color: rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="dark"] .bg-slate-50 {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #0f172a !important;
+}
+
+[data-theme="dark"] .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .text-slate-600 {
+  color: #cbd5f5 !important;
+}
+
+[data-theme="dark"] .text-slate-700 {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .text-slate-800 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .border-slate-200 {
+  border-color: rgba(148, 163, 184, 0.4) !important;
+}
+
+[data-theme="dark"] .border-slate-300 {
+  border-color: rgba(148, 163, 184, 0.5) !important;
+}
+
+[data-theme="dark"] .text-dark {
+  color: #f1f5f9 !important;
 }

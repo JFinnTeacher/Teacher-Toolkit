@@ -34,7 +34,17 @@
         >
           ← Back to toolkit
         </a>
-        <span class="tt-pill">Lollypop Questions</span>
+        <div class="flex items-center gap-3">
+          <span class="tt-pill">Lollypop Questions</span>
+          <button
+            type="button"
+            data-theme-toggle
+            aria-pressed="false"
+            class="inline-flex items-center rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:text-primary"
+          >
+            <span data-theme-label>Switch to dark mode</span>
+          </button>
+        </div>
       </header>
 
       <main class="tt-grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
@@ -46,6 +56,37 @@
               Track refusals, record the outcome, and keep everyone cycling through until they
               succeed.
             </p>
+          </div>
+
+          <div
+            class="rounded-2xl border border-slate-200 bg-slate-50/60 p-4 flex flex-wrap gap-3 items-end"
+          >
+            <label class="flex-1 min-w-[220px] text-sm font-semibold text-slate-600 space-y-2">
+              Use saved class list
+              <select
+                data-classlist-select
+                class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary"
+              >
+                <option value="">Select a saved class…</option>
+              </select>
+            </label>
+            <div class="flex flex-wrap gap-2">
+              <button
+                type="button"
+                data-classlist-sync
+                class="rounded-full bg-primary text-white px-4 py-2 text-sm font-semibold shadow-glow hover:opacity-90 disabled:opacity-40"
+                disabled
+              >
+                Save roster to list
+              </button>
+              <a
+                href="../index.html#class-lists"
+                data-open-classlists
+                class="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:text-primary"
+              >
+                Manage lists
+              </a>
+            </div>
           </div>
 
           <form id="roster-form" class="space-y-4">
