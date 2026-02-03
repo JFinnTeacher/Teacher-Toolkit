@@ -11,18 +11,18 @@ assets/
 └── js/
     ├── site.js             # Global helpers + nav behavior
     ├── timer.js            # Countdown timer logic
-    ├── quickQuiz.js        # Quiz builder + presenter
+    ├── lollypopQuestions.js   # Lollypop pairing logic
     └── studentList.js      # Student questioning list
 tools/
 ├── timer.html
-├── quick-quiz.html
+├── lollypop-questions.html
 └── student-list.html
 ```
 
 ## Included tools
 
 - **Countdown Timer** – Presets (1–10 min), custom durations, progress ring, optional completion chime, and automatic local-storage persistence.
-- **Quick Quiz Builder** – Create multiple-choice checks, run live sessions one prompt at a time, and import/export quizzes as JSON.
+- **Lollypop Questions** – Randomly assign responder/questioner pairs, track single-use refusals, and remove students who succeed from the active list.
 - **Student Questioning List** – Paste/upload rosters, mark students as asked or absent, log history, and run non-repeating random selections.
 
 Every page loads Tailwind via CDN plus `assets/css/base.css`, meaning brand updates or focus tweaks cascade throughout the toolkit.

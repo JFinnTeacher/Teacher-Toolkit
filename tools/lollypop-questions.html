@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lollypop Questions • Teacher Toolkit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              accent: "#f97316",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body class="min-h-screen bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
+      <header class="flex flex-wrap items-center justify-between gap-4">
+        <a
+          href="../index.html"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-primary"
+        >
+          ← Back to toolkit
+        </a>
+        <span class="tt-pill">Lollypop Questions</span>
+      </header>
+
+      <main class="tt-grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <section class="tt-surface p-8 space-y-8">
+          <div class="space-y-3">
+            <h1 class="text-3xl font-semibold text-dark">Pair students for questioning rounds</h1>
+            <p class="text-slate-600">
+              Import your class list, then let the tool randomly choose who answers and who asks.
+              Track refusals, record the outcome, and keep everyone cycling through until they
+              succeed.
+            </p>
+          </div>
+
+          <form id="roster-form" class="space-y-4">
+            <label class="text-sm font-semibold text-slate-600 space-y-2">
+              Paste names (one per line or comma-separated)
+              <textarea
+                id="roster-input"
+                rows="4"
+                class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary"
+                placeholder="Addison Chen&#10;Evelyn Ortiz&#10;Morgan Patel"
+              ></textarea>
+            </label>
+            <div class="flex flex-wrap gap-3">
+              <button
+                type="submit"
+                class="rounded-2xl bg-primary text-white font-semibold px-5 py-3 shadow-glow hover:opacity-90"
+              >
+                Add to list
+              </button>
+              <label
+                for="csv-input"
+                class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:text-primary cursor-pointer"
+              >
+                Import CSV
+              </label>
+              <input id="csv-input" type="file" accept=".csv,text/csv" class="hidden" />
+              <button
+                type="button"
+                id="clear-roster"
+                class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-rose-500 hover:text-rose-600"
+              >
+                Clear list
+              </button>
+            </div>
+            <p id="roster-feedback" class="text-sm text-primary hidden"></p>
+          </form>
+
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <div class="rounded-2xl bg-slate-50 p-4">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Active</p>
+              <p id="count-active" class="text-2xl font-semibold text-dark">0</p>
+            </div>
+            <div class="rounded-2xl bg-slate-50 p-4">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Completed</p>
+              <p id="count-complete" class="text-2xl font-semibold text-dark">0</p>
+            </div>
+            <div class="rounded-2xl bg-slate-50 p-4">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Refusals used</p>
+              <p id="count-refusal" class="text-2xl font-semibold text-dark">0</p>
+            </div>
+          </div>
+
+          <section class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xl font-semibold text-dark">Class roster</h2>
+              <button
+                type="button"
+                id="reset-round"
+                class="text-sm font-semibold text-primary hover:text-accent disabled:opacity-40"
+              >
+                Reset round
+              </button>
+            </div>
+            <div
+              id="roster-list"
+              class="max-h-80 overflow-y-auto border border-slate-100 rounded-3xl divide-y divide-slate-100"
+            >
+              <p class="text-sm text-slate-500 p-4">
+                Add students to see status, refusal usage, and results here.
+              </p>
+            </div>
+          </section>
+        </section>
+
+        <aside class="tt-surface p-8 space-y-6">
+          <div class="space-y-2">
+            <h2 class="text-2xl font-semibold text-dark">Current round</h2>
+            <p class="text-slate-600 text-sm">
+              Pick a responder first, then a questioner. Each student may refuse one time per
+              session. After the exchange, select who succeeded to remove them from the active list.
+            </p>
+          </div>
+
+          <section class="space-y-5">
+            <div class="space-y-3">
+              <div class="rounded-3xl bg-slate-50 p-5 space-y-2">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Responder</p>
+                <p id="responder-name" class="text-2xl font-semibold text-dark min-h-[2.5rem]">
+                  Not selected
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    id="pick-responder"
+                    class="rounded-full bg-primary text-white px-4 py-2 text-sm font-semibold shadow-glow hover:opacity-90"
+                  >
+                    Pick responder
+                  </button>
+                  <button
+                    id="responder-refuse"
+                    class="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:text-primary disabled:opacity-40"
+                    disabled
+                  >
+                    Refuse
+                  </button>
+                </div>
+                <p id="responder-note" class="text-xs text-slate-500 min-h-[1rem]">
+                  —
+                </p>
+              </div>
+              <div class="rounded-3xl bg-slate-50 p-5 space-y-2">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Questioner</p>
+                <p id="questioner-name" class="text-2xl font-semibold text-dark min-h-[2.5rem]">
+                  Not selected
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    id="pick-questioner"
+                    class="rounded-full bg-primary text-white px-4 py-2 text-sm font-semibold shadow-glow hover:opacity-90"
+                    disabled
+                  >
+                    Pick questioner
+                  </button>
+                  <button
+                    id="questioner-refuse"
+                    class="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:text-primary disabled:opacity-40"
+                    disabled
+                  >
+                    Refuse
+                  </button>
+                </div>
+                <p id="questioner-note" class="text-xs text-slate-500 min-h-[1rem]">
+                  —
+                </p>
+              </div>
+            </div>
+
+            <div class="rounded-3xl border border-dashed border-slate-200 p-5 space-y-3">
+              <p class="text-sm text-slate-500">
+                Decide who handled the exchange best. The successful student leaves the rotation; the
+                other returns to the pool.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <button
+                  id="mark-responder-success"
+                  class="rounded-full bg-primary text-white px-5 py-2 text-sm font-semibold shadow-glow hover:opacity-90 disabled:opacity-40"
+                  disabled
+                >
+                  Responder succeeded
+                </button>
+                <button
+                  id="mark-questioner-success"
+                  class="rounded-full bg-primary text-white px-5 py-2 text-sm font-semibold shadow-glow hover:opacity-90 disabled:opacity-40"
+                  disabled
+                >
+                  Questioner succeeded
+                </button>
+                <button
+                  id="mark-no-result"
+                  class="rounded-full border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 hover:text-primary disabled:opacity-40"
+                  disabled
+                >
+                  No winner
+                </button>
+              </div>
+              <p id="round-status" class="text-xs text-slate-500 min-h-[1rem]">Awaiting selections.</p>
+            </div>
+          </section>
+
+          <section class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold text-dark">Round history</h3>
+              <button
+                id="clear-history"
+                class="text-xs font-semibold text-slate-400 hover:text-primary"
+                type="button"
+              >
+                Clear
+              </button>
+            </div>
+            <ul
+              id="history-list"
+              class="space-y-2 text-sm text-slate-600 max-h-56 overflow-y-auto border border-slate-100 rounded-3xl p-4"
+            >
+              <li data-empty="true" class="text-slate-500">No rounds recorded yet.</li>
+            </ul>
+          </section>
+        </aside>
+      </main>
+    </div>
+    <script src="../assets/js/site.js"></script>
+    <script src="../assets/js/lollypopQuestions.js"></script>
+  </body>
+</html>
