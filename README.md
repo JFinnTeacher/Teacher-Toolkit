@@ -5,19 +5,18 @@ Tailwind-powered classroom utilities you can run locally or host on GitHub Pages
 ## Project layout
 
 ```
-Toolkit-Site/
-├── index.html                # Landing page + tool descriptions
-├── assets/
-│   ├── css/base.css          # Shared tokens and utility classes
-│   └── js/
-│       ├── site.js           # Global helpers + nav behavior
-│       ├── timer.js          # Countdown timer logic
-│       ├── quickQuiz.js      # Quiz builder + presenter
-│       └── studentList.js    # Student questioning list
-└── tools/
-    ├── timer.html
-    ├── quick-quiz.html
-    └── student-list.html
+index.html                  # Landing page + tool descriptions
+assets/
+├── css/base.css            # Shared tokens and utility classes
+└── js/
+    ├── site.js             # Global helpers + nav behavior
+    ├── timer.js            # Countdown timer logic
+    ├── quickQuiz.js        # Quiz builder + presenter
+    └── studentList.js      # Student questioning list
+tools/
+├── timer.html
+├── quick-quiz.html
+└── student-list.html
 ```
 
 ## Included tools
@@ -31,8 +30,8 @@ Every page loads Tailwind via CDN plus `assets/css/base.css`, meaning brand upda
 ## Local usage
 
 1. Clone the repo and open the workspace in your editor of choice.
-2. Use a simple static server (e.g., `cd Toolkit-Site && python -m http.server 8000`) **or** open `Toolkit-Site/index.html` directly in the browser.
-3. Navigate between tools from the landing page hero or go straight to the files under `Toolkit-Site/tools/`.
+2. Serve the site (for example: `python -m http.server 8000`) **or** open `index.html` directly in the browser.
+3. Navigate between tools from the landing page hero or visit the HTML files under `tools/`.
 
 No build step is required because scripts are plain ES modules and Tailwind loads from the CDN.
 
@@ -40,10 +39,10 @@ No build step is required because scripts are plain ES modules and Tailwind load
 
 1. Commit your changes and push to `main`.
 2. In your GitHub repository, open **Settings → Pages**.
-3. Set the source to the `main` branch and choose `/Toolkit-Site` as the folder (GitHub Pages will serve `Toolkit-Site/index.html` automatically).
+3. Set the source to the `main` branch (root directory).
 4. Save the settings; Pages will publish at `https://<your-username>.github.io/Teacher-Toolkit/`.
 
-Relative links already assume the `/Toolkit-Site` root, so everything should work once Pages finishes building.
+All links use relative paths, so the site serves correctly from the repository root.
 
 ## Customization tips
 
