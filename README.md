@@ -12,11 +12,13 @@ assets/
     ├── site.js             # Global helpers + nav behavior
     ├── timer.js            # Countdown timer logic
     ├── lollypopQuestions.js   # Lollypop pairing logic
-    └── studentList.js      # Student questioning list
+    ├── studentList.js      # Student questioning list
+    └── feedbackGenerator.js   # Student feedback generator
 tools/
 ├── timer.html
 ├── lollypop-questions.html
-└── student-list.html
+├── student-list.html
+└── feedback-generator.html
 ```
 
 ## Included tools
@@ -24,6 +26,7 @@ tools/
 - **Countdown Timer** – Presets (1–10 min), custom durations, progress ring, optional completion chime, and automatic local-storage persistence.
 - **Lollypop Questions** – Randomly assign responder/questioner pairs, track single-use refusals, and remove students who succeed from the active list.
 - **Student Questioning List** – Paste/upload rosters, mark students as asked or absent, log history, and run non-repeating random selections.
+- **Student Feedback Generator** – Upload a students CSV (name, gender, scores per element) and a comment bank CSV (element, mark ranges, templates). Generates one combined written comment per student with placeholders filled; download results as CSV. All processing runs in the browser.
 
 Every page loads Tailwind via CDN plus `assets/css/base.css`, meaning brand updates or focus tweaks cascade throughout the toolkit.
 

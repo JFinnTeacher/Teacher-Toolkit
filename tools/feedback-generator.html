@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Feedback Generator • Teacher Toolkit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              accent: "#f97316",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+  </head>
+  <body class="min-h-screen bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
+      <header class="flex flex-wrap items-center justify-between gap-4">
+        <a
+          href="../index.html"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-primary"
+        >
+          ← Back to toolkit
+        </a>
+        <div class="flex items-center gap-3">
+          <span class="tt-pill">Student Feedback Generator</span>
+          <button
+            type="button"
+            data-theme-toggle
+            aria-pressed="false"
+            class="inline-flex items-center rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:text-primary"
+          >
+            <span data-theme-label>Switch to dark mode</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="tt-grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <section class="tt-surface p-8 space-y-6">
+          <div>
+            <h1 class="text-3xl font-semibold text-dark">Generate comments from exam marks</h1>
+            <p class="text-slate-600">
+              Upload a students CSV (names, gender, scores per element) and a comment bank CSV (mark
+              ranges and templates). The tool produces one combined written comment per student. All
+              processing happens in your browser; no data is sent to any server.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <label class="block text-sm font-semibold text-slate-600">
+              Students CSV
+              <input
+                type="file"
+                id="students-file"
+                accept=".csv,text/csv,text/plain"
+                class="mt-2 w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+              />
+            </label>
+            <label class="block text-sm font-semibold text-slate-600">
+              Comment bank CSV
+              <input
+                type="file"
+                id="commentbank-file"
+                accept=".csv,text/csv,text/plain"
+                class="mt-2 w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+              />
+            </label>
+          </div>
+
+          <div id="preview-area" class="hidden rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-3">
+            <h2 class="text-lg font-semibold text-dark">Preview</h2>
+            <p id="preview-summary" class="text-sm text-slate-600"></p>
+            <p id="preview-elements" class="text-xs text-slate-500"></p>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <button
+              type="button"
+              id="generate-btn"
+              disabled
+              class="rounded-2xl bg-primary text-white font-semibold px-5 py-3 shadow-glow hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Generate feedback
+            </button>
+            <a
+              href="#"
+              id="sample-students"
+              class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:text-primary"
+              download="sample-students.csv"
+            >
+              Download sample students CSV
+            </a>
+            <a
+              href="#"
+              id="sample-commentbank"
+              class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:text-primary"
+              download="sample-commentbank.csv"
+            >
+              Download sample comment bank CSV
+            </a>
+          </div>
+
+          <p id="status" class="text-sm text-slate-500 min-h-[1.5rem]">
+            Load both CSV files to enable generation.
+          </p>
+        </section>
+
+        <aside class="tt-surface p-8 space-y-6">
+          <div>
+            <h2 class="text-2xl font-semibold text-dark">Results</h2>
+            <p class="text-slate-600 text-sm">
+              After generating, review the combined comment per student and download the results as
+              CSV.
+            </p>
+          </div>
+
+          <div id="results-area" class="hidden space-y-4">
+            <p id="results-summary" class="text-sm font-semibold text-primary"></p>
+            <div class="max-h-96 overflow-y-auto rounded-2xl border border-slate-200 divide-y divide-slate-100">
+              <div id="results-list" class="divide-y divide-slate-100"></div>
+            </div>
+            <button
+              type="button"
+              id="download-btn"
+              class="w-full rounded-2xl bg-slate-900/90 text-white font-semibold py-3 hover:bg-slate-900"
+            >
+              Download results CSV
+            </button>
+          </div>
+
+          <div id="results-empty" class="rounded-2xl border border-dashed border-slate-200 p-6 text-center text-sm text-slate-500">
+            No results yet. Load both CSVs and click “Generate feedback”.
+          </div>
+
+          <div class="text-sm text-slate-500 border border-slate-200 rounded-2xl p-4">
+            <strong class="text-dark">File formats:</strong> Students CSV needs columns
+            <code class="bg-slate-100 px-1 rounded">name</code>,
+            <code class="bg-slate-100 px-1 rounded">gender</code> (M/F), then score columns per
+            element. Comment bank needs <code class="bg-slate-100 px-1 rounded">element</code>,
+            <code class="bg-slate-100 px-1 rounded">min_marks</code>,
+            <code class="bg-slate-100 px-1 rounded">max_marks</code>,
+            <code class="bg-slate-100 px-1 rounded">comment_template</code>. Use placeholders
+            <code class="bg-slate-100 px-1 rounded">{name}</code>,
+            <code class="bg-slate-100 px-1 rounded">{score}</code>,
+            <code class="bg-slate-100 px-1 rounded">{percentage}</code>, and pronoun forms in
+            templates.
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script src="../assets/js/site.js"></script>
+    <script src="../assets/js/feedbackGenerator.js"></script>
+  </body>
+</html>
