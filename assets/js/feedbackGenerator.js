@@ -164,10 +164,11 @@
   function generateFeedback(studentsRows, commentbankRows, scoreColumns, maxMarks) {
     const results = [];
     for (const student of studentsRows) {
-      const name = String(student.name || "").trim();
+      const fullName = String(student.name || "").trim();
+      const name = fullName.includes(" ") ? fullName.split(" ")[0] : fullName;
       const gender = (String(student.gender || "").toUpperCase() === "F" ? "F" : "M");
       const elementComments = [];
-      const outRow = { name, gender };
+      const outRow = { name: fullName, gender };
       let percentSum = 0;
       let percentCount = 0;
 

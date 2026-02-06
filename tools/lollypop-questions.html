@@ -54,7 +54,8 @@
             <p class="text-slate-600">
               Import your class list, then let the tool randomly choose who answers and who asks.
               Track refusals, record the outcome, and keep everyone cycling through until they
-              succeed.
+              succeed. All data remains in your browser—nothing is uploaded to any third party,
+              making this GDPR compliant and safe for teachers to use with student names.
             </p>
           </div>
 
@@ -275,6 +276,35 @@
           </section>
         </aside>
       </main>
+    </div>
+    <div
+      data-cookie-banner
+      class="hidden fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white px-4 py-4 shadow-[0_-4px_20px_rgba(15,23,42,0.08)]"
+      role="dialog"
+      aria-labelledby="cookie-banner-title"
+      aria-describedby="cookie-banner-desc"
+    >
+      <div class="max-w-6xl mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex-1">
+          <h2 id="cookie-banner-title" class="text-sm font-semibold text-dark">Cookies & local storage</h2>
+          <p id="cookie-banner-desc" class="text-sm text-slate-600 mt-0.5">
+            This site uses local storage (not cookies) to save your preferences—theme, class lists,
+            timer duration—on your device. Third-party resources (Tailwind CDN, Google Fonts) load
+            from external servers. No tracking cookies or analytics are used. By continuing, you
+            accept this use. Your data remains in your browser and is not uploaded to any third
+            party. See our
+            <a href="https://github.com/JFinn/Teacher-Toolkit" class="text-primary underline hover:no-underline">GitHub repository</a>
+            for full details.
+          </p>
+        </div>
+        <button
+          type="button"
+          data-cookie-accept
+          class="shrink-0 rounded-full bg-primary px-6 py-2 text-sm font-semibold text-white shadow-glow hover:opacity-90"
+        >
+          Accept
+        </button>
+      </div>
     </div>
     <script src="../assets/js/site.js"></script>
     <script src="../assets/js/lollypopQuestions.js"></script>
