@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Teacher Toolkit</title>
+    <title>The Practical Teacher Toolkit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -38,8 +38,8 @@
             >TT</span
           >
           <div>
-            <p class="text-lg font-semibold text-dark">Teacher Toolkit</p>
-            <p class="text-sm text-slate-500">Class-ready utilities</p>
+            <p class="text-lg font-semibold text-dark">The Practical Teacher Toolkit</p>
+            <p class="text-sm text-slate-500">Tools, resources & content</p>
           </div>
         </a>
         <button
@@ -62,9 +62,9 @@
           data-nav-menu
           class="w-full md:w-auto md:flex md:items-center md:gap-8 text-sm font-medium text-slate-600 hidden md:block"
         >
-          <a href="#how" class="hover:text-primary block py-2">How it works</a>
           <a href="#tools" class="hover:text-primary block py-2">Tools</a>
-          <a href="#inside" class="hover:text-primary block py-2">What's inside</a>
+          <a href="#resources" class="hover:text-primary block py-2">Resources</a>
+          <a href="#how" class="hover:text-primary block py-2">How it works</a>
           <button
             type="button"
             data-theme-toggle
@@ -77,17 +77,15 @@
       </header>
 
       <main class="space-y-24">
-        <section
-          class="tt-surface overflow-hidden px-6 py-10 md:p-12 flex flex-col gap-10 lg:flex-row lg:items-center"
-        >
-          <div class="flex-1 space-y-6">
+        <section class="tt-surface overflow-hidden px-6 py-10 md:p-12">
+          <div class="max-w-3xl space-y-6">
             <span class="tt-pill inline-block">Made for busy teachers</span>
             <h1 class="text-3xl md:text-5xl font-semibold text-dark leading-tight">
-              Launch classroom-ready tools in seconds.
+              Tools, resources & content for teachers.
             </h1>
             <p class="text-lg text-slate-600 max-w-2xl">
-              A lightweight toolkit for timers, quick checks for understanding, and tracking
-              student participation. Every tool is centrally themed with Tailwind CSS and our shared
+              Classroom tools, admin helpers, and subject-specific resources for Engineering and
+              Computer Science. Every tool is centrally themed with Tailwind CSS and our shared
               stylesheet so updates stay consistent.
             </p>
             <p class="text-slate-600 max-w-2xl">
@@ -100,6 +98,11 @@
                 href="#tools"
                 class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 font-semibold text-white shadow-glow hover:opacity-90 transition"
                 >Explore Tools</a
+              >
+              <a
+                href="#resources"
+                class="inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:border-primary hover:text-primary transition"
+                >Browse Resources</a
               >
               <a
                 href="https://github.com/JFinn/Teacher-Toolkit"
@@ -117,39 +120,14 @@
             </div>
             <dl class="grid grid-cols-2 gap-6 max-w-lg text-center">
               <div class="rounded-2xl bg-slate-50 px-4 py-5">
-                <dt class="text-sm uppercase tracking-wide text-slate-500">Tools included</dt>
-                <dd class="text-3xl font-semibold text-dark">4</dd>
+                <dt class="text-sm uppercase tracking-wide text-slate-500">Classroom tools</dt>
+                <dd class="text-3xl font-semibold text-dark">3</dd>
               </div>
               <div class="rounded-2xl bg-slate-50 px-4 py-5">
-                <dt class="text-sm uppercase tracking-wide text-slate-500">Setup time</dt>
-                <dd class="text-3xl font-semibold text-dark">&lt; 5 min</dd>
+                <dt class="text-sm uppercase tracking-wide text-slate-500">Subject areas</dt>
+                <dd class="text-3xl font-semibold text-dark">2</dd>
               </div>
             </dl>
-          </div>
-          <div
-            class="flex-1 relative tt-glow rounded-3xl bg-gradient-to-br from-primary/90 to-accent/80 text-white p-8 shadow-glow tt-hero-gradient"
-          >
-            <div class="space-y-4">
-              <p class="text-sm uppercase tracking-widest opacity-80">Always in sync</p>
-              <p class="text-2xl font-semibold leading-snug">
-                Central design system<br />
-                + Tailwind power
-              </p>
-              <p class="text-sm text-white/80 max-w-sm">
-                Update styles once inside `assets/css/base.css` and the change will cascade to every
-                classroom tool automatically.
-              </p>
-            </div>
-            <div class="mt-10 grid gap-4 text-sm">
-              <div class="tt-gradient-border rounded-2xl p-4">
-                <p class="font-semibold">Tailwind + custom tokens</p>
-                <p class="text-white/80">Scale colors, fonts, and spacing together.</p>
-              </div>
-              <div class="tt-gradient-border rounded-2xl p-4">
-                <p class="font-semibold">Shared utilities</p>
-                <p class="text-white/80">Local storage helpers and accessibility baked in.</p>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -182,145 +160,83 @@
           </div>
         </section>
 
-        <section id="tools" class="space-y-10">
+        <section id="tools" class="space-y-12">
           <div class="flex flex-col gap-3">
             <p class="tt-section-heading">Toolkit lineup</p>
-            <h2 class="text-3xl font-semibold text-dark">Each tool gets its own workspace</h2>
+            <h2 class="text-3xl font-semibold text-dark">Tools for classroom and admin</h2>
             <p class="text-slate-600 max-w-3xl">
-              Click into any tool to open an immersive page dedicated to that workflow. Controls and
-              layouts stay predictable thanks to our shared Tailwind + CSS system. All tools keep
-              data in your browser—nothing is uploaded to third parties, so the toolkit is GDPR
+              Click into any tool to open an immersive page dedicated to that workflow. All tools
+              keep data in your browser—nothing is uploaded to third parties, so the toolkit is GDPR
               compliant and safe for teachers to use with student information.
             </p>
           </div>
-          <div class="tt-grid gap-6 md:grid-cols-3">
+
+          <div class="tt-grid gap-6 md:grid-cols-2">
             <article class="tt-surface tt-card-outline p-6 flex flex-col gap-4">
-              <div class="tt-pill w-fit">Timer</div>
-              <h3 class="text-2xl font-semibold text-dark">Countdown Timer</h3>
+              <div class="tt-pill w-fit">Classroom</div>
+              <h3 class="text-2xl font-semibold text-dark">Classroom tools</h3>
               <p class="text-slate-600 flex-1">
-                Start, pause, and reset time blocks with a progress ring and gentle audio alert.
-                Presets keep transitions smooth.
+                Timers, questioning helpers, and other utilities for use during lessons. Countdown
+                timer, Lollypop Questions, and Student Questioning List.
               </p>
-              <ul class="text-sm text-slate-500 space-y-2">
-                <li>• One-tap presets (1–10 min)</li>
-                <li>• Custom durations remembered</li>
-                <li>• Optional chime on completion</li>
-              </ul>
               <a
-                href="./tools/timer.html"
+                href="./tools/classroom.html"
                 class="inline-flex items-center gap-2 font-semibold text-primary hover:gap-3 transition-all"
               >
-                Open timer
+                View classroom tools
                 <span aria-hidden="true">→</span>
               </a>
             </article>
-
             <article class="tt-surface tt-card-outline p-6 flex flex-col gap-4">
-              <div class="tt-pill w-fit">Collaboration</div>
-              <h3 class="text-2xl font-semibold text-dark">Lollypop Questions</h3>
+              <div class="tt-pill w-fit">Admin</div>
+              <h3 class="text-2xl font-semibold text-dark">Admin tools</h3>
               <p class="text-slate-600 flex-1">
-                Pair students to ask and answer without repeats. Track refusals, remove those who
-                succeed, and keep everyone else in the rotation.
+                Student feedback generator and other planning, assessment, and reporting utilities.
               </p>
-              <ul class="text-sm text-slate-500 space-y-2">
-                <li>• Import names or paste a roster</li>
-                <li>• Randomly assign asker and responder</li>
-                <li>• Record results with one-tap outcomes</li>
-              </ul>
               <a
-                href="./tools/lollypop-questions.html"
+                href="./tools/admin.html"
                 class="inline-flex items-center gap-2 font-semibold text-primary hover:gap-3 transition-all"
               >
-                Open Lollypop Questions
-                <span aria-hidden="true">→</span>
-              </a>
-            </article>
-
-            <article class="tt-surface tt-card-outline p-6 flex flex-col gap-4">
-              <div class="tt-pill w-fit">Participation</div>
-              <h3 class="text-2xl font-semibold text-dark">Student Questioning List</h3>
-              <p class="text-slate-600 flex-1">
-                Keep cold-calling equitable with a smart randomizer. Mark students as asked or absent
-                and reset with a tap.
-              </p>
-              <ul class="text-sm text-slate-500 space-y-2">
-                <li>• Paste names or upload CSV</li>
-                <li>• History log avoids repeats</li>
-                <li>• Save lists locally per class</li>
-              </ul>
-              <a
-                href="./tools/student-list.html"
-                class="inline-flex items-center gap-2 font-semibold text-primary hover:gap-3 transition-all"
-              >
-                Open Student List
-                <span aria-hidden="true">→</span>
-              </a>
-            </article>
-
-            <article class="tt-surface tt-card-outline p-6 flex flex-col gap-4">
-              <div class="tt-pill w-fit">Feedback</div>
-              <h3 class="text-2xl font-semibold text-dark">Student Feedback Generator</h3>
-              <p class="text-slate-600 flex-1">
-                Upload a students CSV and a comment bank CSV; get one combined written comment per
-                student, with scores and percentages. Runs in your browser; no data is sent to any
-                server.
-              </p>
-              <ul class="text-sm text-slate-500 space-y-2">
-                <li>• Students CSV: name, gender, scores per element</li>
-                <li>• Comment bank: mark ranges and templates per element</li>
-                <li>• Download results as CSV</li>
-              </ul>
-              <a
-                href="./tools/feedback-generator.html"
-                class="inline-flex items-center gap-2 font-semibold text-primary hover:gap-3 transition-all"
-              >
-                Open Feedback Generator
+                View admin tools
                 <span aria-hidden="true">→</span>
               </a>
             </article>
           </div>
         </section>
 
-        <section id="inside" class="space-y-8">
+        <section id="resources" class="space-y-10">
           <div class="flex flex-col gap-3">
-            <p class="tt-section-heading">What's inside</p>
-            <h2 class="text-3xl font-semibold text-dark">Built to update once, use everywhere</h2>
+            <p class="tt-section-heading">Subject resources</p>
+            <h2 class="text-3xl font-semibold text-dark">Content for Engineering & Computer Science</h2>
             <p class="text-slate-600 max-w-3xl">
-              Whether you tweak typography, swap colors, or add a new helper function, the change
-              propagates across all tools automatically.
+              Lesson ideas, resources, and subject-specific content for teaching Engineering and
+              Computer Science. More materials will be added over time.
             </p>
           </div>
-          <div class="tt-grid tt-grid-2">
-            <article class="tt-surface p-8 flex flex-col gap-4">
-              <h3 class="text-2xl font-semibold text-dark">Tailwind + base.css</h3>
-              <p class="text-slate-600">
-                Tailwind powers rapid layout while `assets/css/base.css` handles tokens, focus
-                states, and shared micro-interactions. Tools stay consistent even as you expand the
-                kit.
+          <div class="tt-grid gap-6 md:grid-cols-2">
+            <article class="tt-surface tt-card-outline p-6 flex flex-col gap-4">
+              <div class="tt-pill w-fit">Engineering</div>
+              <h3 class="text-2xl font-semibold text-dark">Engineering resources</h3>
+              <p class="text-slate-600 flex-1">
+                Resources, lesson ideas, and subject-specific content for teaching Engineering.
               </p>
-              <code class="bg-slate-900/90 text-slate-100 rounded-2xl p-4 text-sm leading-7"
-                >:root {<br />
-                &nbsp;&nbsp;--tt-color-primary: #2563eb;<br />
-                &nbsp;&nbsp;--tt-radius-lg: 1.25rem;<br />
-                }</code
-              >
+              <p class="text-sm text-slate-500 italic">Coming soon</p>
             </article>
-            <article class="tt-surface p-8 flex flex-col gap-4">
-              <h3 class="text-2xl font-semibold text-dark">Modular JavaScript</h3>
-              <p class="text-slate-600">
-                Shared helpers live in `assets/js/site.js`, while each tool ships with its own lean
-                module. No frameworks required, just native web APIs.
+            <article class="tt-surface tt-card-outline p-6 flex flex-col gap-4">
+              <div class="tt-pill w-fit">Computer Science</div>
+              <h3 class="text-2xl font-semibold text-dark">Computer Science resources</h3>
+              <p class="text-slate-600 flex-1">
+                Resources, lesson ideas, and subject-specific content for teaching Computer Science.
               </p>
-              <code class="bg-slate-900/90 text-slate-100 rounded-2xl p-4 text-sm leading-7"
-                >TeacherToolkit.storage.write("timerDuration", seconds);</code
-              >
+              <p class="text-sm text-slate-500 italic">Coming soon</p>
             </article>
           </div>
         </section>
       </main>
 
-      <footer class="mt-24 border-t border-slate-200 pt-8 text-center text-sm text-slate-500">
-        Made with Tailwind CSS • Hosted on GitHub Pages
+      <footer class="mt-24 border-t border-slate-200 pt-8 text-center text-sm text-slate-500 space-y-1">
+        <p>The Practical Teacher Toolkit • <a href="https://practical-teacher.com" class="text-primary hover:underline">practical-teacher.com</a> • Made with Tailwind CSS</p>
+        <p>Last updated: 3 February 2026</p>
       </footer>
     </div>
     <div

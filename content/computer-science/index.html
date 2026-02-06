@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Computer Science • The Practical Teacher Toolkit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              accent: "#f97316",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+  </head>
+  <body class="min-h-screen bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
+      <header class="flex flex-wrap items-center justify-between gap-4">
+        <a
+          href="../../index.html"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-primary"
+        >
+          ← Back to toolkit
+        </a>
+        <div class="flex items-center gap-3">
+          <span class="tt-pill">Computer Science</span>
+          <button
+            type="button"
+            data-theme-toggle
+            aria-pressed="false"
+            class="inline-flex items-center rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:text-primary"
+          >
+            <span data-theme-label>Switch to dark mode</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="tt-surface p-12 space-y-8">
+        <div class="text-center space-y-4">
+          <h1 class="text-3xl font-semibold text-dark">Computer Science</h1>
+          <p class="text-slate-600 max-w-2xl mx-auto">
+            Resources, lesson ideas, and subject-specific content for teaching Computer Science. New
+            materials will be added here as the site grows.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-dashed border-slate-200 p-8 text-center text-slate-500">
+          <p class="font-medium text-slate-600">Coming soon</p>
+          <p class="text-sm mt-1">Content and resources for Computer Science are in development.</p>
+          <a
+            href="../../index.html#resources"
+            class="inline-flex items-center gap-2 mt-4 font-semibold text-primary hover:gap-3 transition-all"
+          >
+            ← View all resources
+          </a>
+        </div>
+      </main>
+    </div>
+    <div
+      data-cookie-banner
+      class="hidden fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white px-4 py-4 shadow-[0_-4px_20px_rgba(15,23,42,0.08)]"
+      role="dialog"
+      aria-labelledby="cookie-banner-title"
+      aria-describedby="cookie-banner-desc"
+    >
+      <div class="max-w-6xl mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex-1">
+          <h2 id="cookie-banner-title" class="text-sm font-semibold text-dark">Cookies & local storage</h2>
+          <p id="cookie-banner-desc" class="text-sm text-slate-600 mt-0.5">
+            This site uses local storage to save your preferences. No tracking cookies are used.
+            <a href="https://github.com/JFinn/Teacher-Toolkit" class="text-primary underline hover:no-underline">Learn more</a>.
+          </p>
+        </div>
+        <button type="button" data-cookie-accept class="shrink-0 rounded-full bg-primary px-6 py-2 text-sm font-semibold text-white shadow-glow hover:opacity-90">Accept</button>
+      </div>
+    </div>
+    <script src="../../assets/js/site.js"></script>
+  </body>
+</html>
