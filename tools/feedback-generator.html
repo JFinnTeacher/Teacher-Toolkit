@@ -54,7 +54,9 @@
             <p class="text-slate-600">
               Upload a students CSV (names, gender, scores per element) and a comment bank CSV (mark
               ranges and templates). The tool produces one combined written comment per student. All
-              processing happens in your browser; no data is sent to any server.
+              processing happens in your browser—no data is sent to any server or third party. This
+              keeps student information local, making the tool GDPR compliant and safe for teachers
+              to use.
             </p>
           </div>
 
@@ -159,6 +161,131 @@
           </div>
         </aside>
       </main>
+
+      <section class="tt-surface p-8 space-y-8 mt-12">
+        <h2 class="text-2xl font-semibold text-dark">How to use this tool</h2>
+
+        <div class="space-y-6 prose prose-slate max-w-none">
+          <div>
+            <h3 class="text-lg font-semibold text-dark mb-2">1. Prepare your files</h3>
+            <p class="text-slate-600">
+              You need two CSV files: a <strong>Students CSV</strong> (your class roster with marks per exam element) and a
+              <strong>Comment bank CSV</strong> (templates that describe what to write for each mark range). Use the sample
+              downloads above to see the expected format, or create your own from scratch.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold text-dark mb-2">2. Students CSV format</h3>
+            <p class="text-slate-600 mb-2">Your students file must have:</p>
+            <ul class="list-disc pl-6 text-slate-600 space-y-1 mb-3">
+              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">name</code> — Student’s name (used in placeholders)</li>
+              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">gender</code> — <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">M</code> or <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">F</code> (for pronoun placeholders)</li>
+              <li>One or more score columns — Column names must match the <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">element</code> names in your comment bank</li>
+            </ul>
+            <p class="text-slate-600 mb-2"><strong>Example:</strong></p>
+            <pre class="bg-slate-100 rounded-xl p-4 text-sm overflow-x-auto"><code>name,gender,element1,element2,element3
+John Smith,M,17,36,45
+Sarah Jones,F,13,44,35
+Alex Brown,M,15,40,38</code></pre>
+            <p class="text-slate-600 mt-2 text-sm">
+              Here, <code class="bg-slate-100 px-1 rounded">element1</code>, <code class="bg-slate-100 px-1 rounded">element2</code>, and <code class="bg-slate-100 px-1 rounded">element3</code> are the exam elements. Their names must match exactly the <code class="bg-slate-100 px-1 rounded">element</code> column in the comment bank.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold text-dark mb-2">3. Comment bank CSV format</h3>
+            <p class="text-slate-600 mb-2">Your comment bank must have these columns:</p>
+            <ul class="list-disc pl-6 text-slate-600 space-y-1 mb-3">
+              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">element</code> — Matches the score column name in the students CSV</li>
+              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">min_marks</code> — Minimum score (inclusive) for this comment</li>
+              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">max_marks</code> — Maximum score (inclusive) for this comment</li>
+              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">comment_template</code> — The text to use, with placeholders</li>
+            </ul>
+            <p class="text-slate-600 mb-2">
+              For each student, the tool looks up each score column, finds the comment bank row where <code class="bg-slate-100 px-1 rounded">element</code> matches and the score falls between <code class="bg-slate-100 px-1 rounded">min_marks</code> and <code class="bg-slate-100 px-1 rounded">max_marks</code>, then replaces placeholders in the template. If multiple rows match (overlapping ranges), the first match is used.
+            </p>
+            <p class="text-slate-600 mb-2"><strong>Example:</strong></p>
+            <pre class="bg-slate-100 rounded-xl p-4 text-sm overflow-x-auto"><code>element,min_marks,max_marks,comment_template
+element1,0,10,{name} struggled with this component. {pronoun_cap} needs to focus on revision.
+element1,11,14,{name} showed some understanding. {pronoun_cap} should work on weaker areas.
+element1,15,17,{name} demonstrated a good grasp. {pronoun_cap} effectively applied the concepts.
+element1,18,20,{name} excelled in this area. {possessive_cap} work was outstanding.</code></pre>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold text-dark mb-2">4. Placeholders in templates</h3>
+            <p class="text-slate-600 mb-2">Use these inside <code class="bg-slate-100 px-1 rounded">comment_template</code>; they are replaced automatically:</p>
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
+                <thead class="bg-slate-100">
+                  <tr>
+                    <th class="text-left px-4 py-2 font-semibold text-dark">Placeholder</th>
+                    <th class="text-left px-4 py-2 font-semibold text-dark">Example output (M)</th>
+                    <th class="text-left px-4 py-2 font-semibold text-dark">Example output (F)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{name}</code></td><td>John Smith</td><td>Sarah Jones</td></tr>
+                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{pronoun}</code></td><td>he</td><td>she</td></tr>
+                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{pronoun_cap}</code></td><td>He</td><td>She</td></tr>
+                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{possessive}</code></td><td>his</td><td>her</td></tr>
+                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{possessive_cap}</code></td><td>His</td><td>Her</td></tr>
+                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{object}</code></td><td>him</td><td>her</td></tr>
+                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{score}</code></td><td colspan="2">The score for that element (e.g. 17)</td></tr>
+                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{max_score}</code></td><td colspan="2">Max marks for that element (e.g. 20)</td></tr>
+                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{percentage}</code></td><td colspan="2">Score as a percentage (e.g. 85.0)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold text-dark mb-2">5. Generate and download</h3>
+            <p class="text-slate-600">
+              After both files are loaded, click <strong>Generate feedback</strong>. The tool combines one comment per exam element into a single paragraph per student. Use <strong>Download results CSV</strong> to save the output. The results CSV includes the combined comment plus per-element scores and percentages for your records.
+            </p>
+          </div>
+
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-semibold text-dark mb-1">Tips</p>
+            <ul class="list-disc pl-6 text-slate-600 text-sm space-y-1">
+              <li>Keep element names identical between the students CSV and comment bank (e.g. <code class="bg-slate-200 px-1 rounded">element1</code> in both).</li>
+              <li>Ensure mark ranges cover all possible scores so every student gets a comment for each element.</li>
+              <li>Use quoted fields in CSV if your text contains commas: <code class="bg-slate-200 px-1 rounded">"Smith, John"</code>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div
+      data-cookie-banner
+      class="hidden fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white px-4 py-4 shadow-[0_-4px_20px_rgba(15,23,42,0.08)]"
+      role="dialog"
+      aria-labelledby="cookie-banner-title"
+      aria-describedby="cookie-banner-desc"
+    >
+      <div class="max-w-6xl mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex-1">
+          <h2 id="cookie-banner-title" class="text-sm font-semibold text-dark">Cookies & local storage</h2>
+          <p id="cookie-banner-desc" class="text-sm text-slate-600 mt-0.5">
+            This site uses local storage (not cookies) to save your preferences—theme, class lists,
+            timer duration—on your device. Third-party resources (Tailwind CDN, Google Fonts) load
+            from external servers. No tracking cookies or analytics are used. By continuing, you
+            accept this use. Your data remains in your browser and is not uploaded to any third
+            party. See our
+            <a href="https://github.com/JFinn/Teacher-Toolkit" class="text-primary underline hover:no-underline">GitHub repository</a>
+            for full details.
+          </p>
+        </div>
+        <button
+          type="button"
+          data-cookie-accept
+          class="shrink-0 rounded-full bg-primary px-6 py-2 text-sm font-semibold text-white shadow-glow hover:opacity-90"
+        >
+          Accept
+        </button>
+      </div>
     </div>
     <script src="../assets/js/site.js"></script>
     <script src="../assets/js/feedbackGenerator.js"></script>

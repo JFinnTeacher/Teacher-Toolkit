@@ -198,7 +198,48 @@ const initThemeToggle = () => {
   });
 };
 
+const CONSENT_KEY = "teacherToolkit:cookieConsent";
+
+const initCookieBanner = () => {
+  const banner = document.querySelector("[data-cookie-banner]");
+  const acceptBtn = document.querySelector("[data-cookie-accept]");
+  if (!banner || !acceptBtn) return;
+
+  const hasConsent = () => {
+    try {
+      return window.localStorage.getItem(CONSENT_KEY) === "true";
+    } catch {
+      return false;
+    }
+  };
+
+  const setConsent = () => {
+    try {
+      window.localStorage.setItem(CONSENT_KEY, "true");
+    } catch (err) {
+      console.warn("Could not store cookie consent", err);
+    }
+  };
+
+  const hideBanner = () => {
+    banner.classList.add("hidden");
+  };
+
+  if (hasConsent()) {
+    hideBanner();
+    return;
+  }
+
+  banner.classList.remove("hidden");
+
+  acceptBtn.addEventListener("click", () => {
+    setConsent();
+    hideBanner();
+  });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initThemeToggle();
+  initCookieBanner();
 });
