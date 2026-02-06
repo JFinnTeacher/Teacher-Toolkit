@@ -1,6 +1,6 @@
-# Teacher Toolkit
+# The Practical Teacher Toolkit
 
-Tailwind-powered classroom utilities you can run locally or host on GitHub Pages. Each tool has its own page but shares a central design system so updates only happen once.
+Tailwind-powered tools, resources, and content for teachers. Classroom tools (timers, questioning helpers, feedback generators), admin tools, and subject-specific resources for Engineering and Computer Science. Each tool and page shares a central design system so updates stay consistent.
 
 ## Project layout
 
@@ -15,11 +15,19 @@ assets/
     ├── studentList.js      # Student questioning list
     └── feedbackGenerator.js   # Student feedback generator
 tools/
-├── timer.html
-├── lollypop-questions.html
-├── student-list.html
-└── feedback-generator.html
+├── timer.html              # Classroom: Countdown timer
+├── lollypop-questions.html # Classroom: Pairing for questioning
+├── student-list.html       # Classroom: Randomizer for cold-calling
+├── feedback-generator.html # Classroom: Generate comments from marks
+└── admin.html              # Admin tools hub (placeholder)
+content/
+├── engineering/            # Engineering resources
+│   └── index.html
+└── computer-science/       # Computer Science resources
+    └── index.html
 ```
+
+The site is organized into **Tools** (Classroom tools, Admin tools) and **Resources** (Engineering, Computer Science). Add new tools under `tools/` and new content under `content/<subject>/`.
 
 ## Included tools
 
@@ -29,6 +37,10 @@ tools/
 - **Student Feedback Generator** – Upload a students CSV (name, gender, scores per element) and a comment bank CSV (element, mark ranges, templates). Generates one combined written comment per student with placeholders filled; download results as CSV. All processing runs in the browser.
 
 Every page loads Tailwind via CDN plus `assets/css/base.css`, meaning brand updates or focus tweaks cascade throughout the toolkit.
+
+## Resources
+
+Subject-specific content and resources for **Engineering** and **Computer Science** live under `content/engineering/` and `content/computer-science/`. Placeholder pages are in place; add lesson plans, handouts, and other materials as you expand the site.
 
 ## Class lists
 
