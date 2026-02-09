@@ -19,16 +19,38 @@
   const sampleStudentsLink = document.getElementById("sample-students");
   const sampleCommentbankLink = document.getElementById("sample-commentbank");
 
+  // Comment bank builder elements
+  const cbElementInput = document.getElementById("cb-element");
+  const cbMinInput = document.getElementById("cb-min");
+  const cbMaxInput = document.getElementById("cb-max");
+  const cbTemplateInput = document.getElementById("cb-template");
+  const cbAddRowBtn = document.getElementById("cb-add-row");
+  const cbClearBtn = document.getElementById("cb-clear");
+  const cbDownloadBtn = document.getElementById("cb-download");
+  const cbLoadBtn = document.getElementById("cb-load");
+  const cbRowsTbody = document.getElementById("cb-rows");
+  const cbStatusEl = document.getElementById("cb-status");
+
   if (!studentsInput || !commentbankInput) return;
 
   let studentsData = null;
   let commentbankData = null;
   let lastResults = null;
 
+  // Local builder state (for comment bank builder UI)
+  const builderRows = [];
+
   const setStatus = (message, isError = false) => {
     statusEl.textContent = message;
     statusEl.classList.toggle("text-rose-500", isError);
     statusEl.classList.toggle("text-slate-500", !isError);
+  };
+
+  const setBuilderStatus = (message, isError = false) => {
+    if (!cbStatusEl) return;
+    cbStatusEl.textContent = message;
+    cbStatusEl.classList.toggle("text-rose-500", isError);
+    cbStatusEl.classList.toggle("text-slate-500", !isError);
   };
 
   /**
@@ -298,6 +320,126 @@
     setStatus("Results downloaded as feedback-results.csv.");
   }
 
+  // --- Comment bank builder helpers ---
+
+  function renderBuilderRows() {
+    if (!cbRowsTbody) return;
+    cbRowsTbody.innerHTML = "";
+    if (!builderRows.length) {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 5;
+      td.className = "px-3 py-3 text-center text-slate-500 italic";
+      td.textContent = "No rows yet. Add element ranges and comments, then download or load into the generator.";
+      tr.appendChild(td);
+      cbRowsTbody.appendChild(tr);
+      return;
+    }
+    builderRows.forEach((row, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="px-3 py-2 text-sm text-slate-700">${row.element}</td>
+        <td class="px-3 py-2 text-sm text-slate-700 text-right">${row.min_marks}</td>
+        <td class="px-3 py-2 text-sm text-slate-700 text-right">${row.max_marks}</td>
+        <td class="px-3 py-2 text-sm text-slate-600">${row.comment_template}</td>
+        <td class="px-3 py-2 text-right">
+          <button type="button" data-cb-remove="${index}" class="text-xs text-rose-500 hover:text-rose-600">
+            Remove
+          </button>
+        </td>
+      `;
+      cbRowsTbody.appendChild(tr);
+    });
+  }
+
+  function handleBuilderAddRow() {
+    if (!cbElementInput || !cbMinInput || !cbMaxInput || !cbTemplateInput) return;
+    const element = cbElementInput.value.trim();
+    const minStr = cbMinInput.value.trim();
+    const maxStr = cbMaxInput.value.trim();
+    const template = cbTemplateInput.value.trim();
+
+    if (!element || !minStr || !maxStr || !template) {
+      setBuilderStatus("Please fill element, min, max, and comment.", true);
+      return;
+    }
+    const min = parseFloat(minStr);
+    const max = parseFloat(maxStr);
+    if (Number.isNaN(min) || Number.isNaN(max) || min < 0 || max < 0) {
+      setBuilderStatus("Min and max must be non-negative numbers.", true);
+      return;
+    }
+    if (min > max) {
+      setBuilderStatus("Min marks must not exceed max marks.", true);
+      return;
+    }
+    builderRows.push({
+      element,
+      min_marks: min,
+      max_marks: max,
+      comment_template: template,
+    });
+    cbElementInput.value = "";
+    cbMinInput.value = "";
+    cbMaxInput.value = "";
+    cbTemplateInput.value = "";
+    setBuilderStatus("Row added.");
+    renderBuilderRows();
+  }
+
+  function handleBuilderClear() {
+    if (!builderRows.length) {
+      setBuilderStatus("Nothing to clear.", true);
+      return;
+    }
+    builderRows.length = 0;
+    renderBuilderRows();
+    setBuilderStatus("All rows cleared.");
+  }
+
+  function handleBuilderDownload() {
+    if (!builderRows.length) {
+      setBuilderStatus("Add at least one row before downloading.", true);
+      return;
+    }
+    const escape = (v) => {
+      const s = String(v ?? "");
+      if (s.includes(",") || s.includes('"') || s.includes("\n")) return `"${s.replace(/"/g, '""')}"`;
+      return s;
+    };
+    const headers = ["element", "min_marks", "max_marks", "comment_template"];
+    const lines = [headers.join(",")];
+    for (const row of builderRows) {
+      lines.push(headers.map((h) => escape(row[h])).join(","));
+    }
+    const blob = new Blob([lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "comment-bank.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+    setBuilderStatus("Comment bank downloaded as comment-bank.csv.");
+  }
+
+  function handleBuilderLoadIntoGenerator() {
+    if (!builderRows.length) {
+      setBuilderStatus("Add at least one row before loading into the generator.", true);
+      return;
+    }
+    commentbankData = builderRows.map((row) => ({
+      element: row.element,
+      min_marks: String(row.min_marks),
+      max_marks: String(row.max_marks),
+      comment_template: row.comment_template,
+    }));
+    setStatus("Comment bank loaded from builder. Now upload a students CSV.", false);
+    setBuilderStatus("Loaded into generator.");
+    if (studentsData) {
+      refreshPreview();
+    }
+  }
+
   const SAMPLE_STUDENTS = `name,gender,element1,element2,element3
 John Smith,M,17,36,45
 Sarah Jones,F,13,44,35
@@ -367,4 +509,52 @@ element3,41,50,{name} achieved an excellent result ({percentage}%).`;
   generateBtn.addEventListener("click", runGenerate);
   downloadBtn.addEventListener("click", downloadResultsCSV);
   initSampleDownloads();
+
+  // Wire up comment bank builder (if present on this page)
+  if (cbRowsTbody) {
+    renderBuilderRows();
+    cbRowsTbody.addEventListener("click", (e) => {
+      const target = e.target;
+      if (target && target.matches("button[data-cb-remove]")) {
+        const index = parseInt(target.getAttribute("data-cb-remove"), 10);
+        if (!Number.isNaN(index)) {
+          builderRows.splice(index, 1);
+          renderBuilderRows();
+          setBuilderStatus("Row removed.");
+        }
+      }
+    });
+  }
+  if (cbAddRowBtn) cbAddRowBtn.addEventListener("click", handleBuilderAddRow);
+  if (cbClearBtn) cbClearBtn.addEventListener("click", handleBuilderClear);
+  if (cbDownloadBtn) cbDownloadBtn.addEventListener("click", handleBuilderDownload);
+  if (cbLoadBtn) cbLoadBtn.addEventListener("click", handleBuilderLoadIntoGenerator);
+
+  // Shortcode copy buttons in the builder guide
+  const shortcodeButtons = document.querySelectorAll("[data-shortcode-copy]");
+  if (shortcodeButtons.length) {
+    shortcodeButtons.forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const code = btn.getAttribute("data-shortcode-copy");
+        if (!code) return;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(code);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = code;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+          }
+          setBuilderStatus(`Copied ${code} to clipboard.`);
+        } catch (err) {
+          setBuilderStatus("Could not copy to clipboard.", true);
+        }
+      });
+    });
+  }
 })();
