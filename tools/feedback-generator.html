@@ -162,6 +162,247 @@
         </aside>
       </main>
 
+      <section id="comment-bank-builder" class="tt-surface p-8 space-y-6">
+        <div class="space-y-1">
+          <h2 class="text-2xl font-semibold text-dark">Comment bank builder (optional)</h2>
+          <p class="text-slate-600 text-sm max-w-2xl">
+            Build a comment bank directly in the browser, then download it as CSV or load it into the
+            generator. This uses the same format as the Comment bank CSV file.
+          </p>
+          <div class="mt-2 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs text-amber-900">
+            <p class="font-semibold">Important:</p>
+            <p>
+              If you want to reuse this comment bank in future sessions or on another computer,
+              <span class="font-semibold">download the CSV and save it to a safe location</span> (e.g. your
+              documents or cloud storage).
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-start">
+          <div class="space-y-3">
+            <div class="grid gap-3 md:grid-cols-4">
+              <label class="text-sm font-semibold text-slate-600 space-y-1 md:col-span-1">
+                Element
+                <input
+                  type="text"
+                  id="cb-element"
+                  class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                  placeholder="e.g. element1"
+                />
+              </label>
+              <label class="text-sm font-semibold text-slate-600 space-y-1">
+                Min marks
+                <input
+                  type="number"
+                  id="cb-min"
+                  min="0"
+                  class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                  placeholder="0"
+                />
+              </label>
+              <label class="text-sm font-semibold text-slate-600 space-y-1">
+                Max marks
+                <input
+                  type="number"
+                  id="cb-max"
+                  min="0"
+                  class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                  placeholder="20"
+                />
+              </label>
+              <label class="text-sm font-semibold text-slate-600 space-y-1 md:col-span-4">
+                Comment template
+                <textarea
+                  id="cb-template"
+                  rows="2"
+                  class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                  placeholder="Use placeholders like {name}, {score}, {max_score}, {percentage}..."
+                ></textarea>
+                <div class="mt-2 space-y-1 text-xs text-slate-500">
+                  <p class="font-semibold text-slate-600">Shortcode guide</p>
+                  <div class="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="space-x-1">
+                        <code class="bg-slate-100 px-1 rounded">{name}</code>
+                        <span>Student's first name</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                        data-shortcode-copy="{name}"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="space-x-1">
+                        <code class="bg-slate-100 px-1 rounded">{pronoun}</code>
+                        <span>he / she</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                        data-shortcode-copy="{pronoun}"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="space-x-1">
+                        <code class="bg-slate-100 px-1 rounded">{pronoun_cap}</code>
+                        <span>He / She</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                        data-shortcode-copy="{pronoun_cap}"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="space-x-1">
+                        <code class="bg-slate-100 px-1 rounded">{possessive}</code>
+                        <span>his / her</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                        data-shortcode-copy="{possessive}"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="space-x-1">
+                        <code class="bg-slate-100 px-1 rounded">{possessive_cap}</code>
+                        <span>His / Her</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                        data-shortcode-copy="{possessive_cap}"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="space-x-1">
+                        <code class="bg-slate-100 px-1 rounded">{object}</code>
+                        <span>him / her</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                        data-shortcode-copy="{object}"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="space-x-1">
+                        <code class="bg-slate-100 px-1 rounded">{score}</code>
+                        <span>Score for this element</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                        data-shortcode-copy="{score}"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="space-x-1">
+                        <code class="bg-slate-100 px-1 rounded">{max_score}</code>
+                        <span>Max marks for this element</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                        data-shortcode-copy="{max_score}"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="space-x-1">
+                        <code class="bg-slate-100 px-1 rounded">{percentage}</code>
+                        <span>Score as a percentage</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                        data-shortcode-copy="{percentage}"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div class="flex flex-wrap gap-3 items-center">
+              <button
+                type="button"
+                id="cb-add-row"
+                class="rounded-full bg-primary text-white px-5 py-2 text-sm font-semibold shadow-glow hover:opacity-90"
+              >
+                Add row
+              </button>
+              <button
+                type="button"
+                id="cb-clear"
+                class="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 hover:text-primary"
+              >
+                Clear all
+              </button>
+              <p id="cb-status" class="text-xs text-slate-500 min-h-[1.25rem]"></p>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex flex-wrap gap-2">
+              <button
+                type="button"
+                id="cb-download"
+                class="rounded-full bg-slate-900/90 text-white px-5 py-2 text-sm font-semibold hover:bg-slate-900"
+              >
+                Download comment bank CSV
+              </button>
+              <button
+                type="button"
+                id="cb-load"
+                class="rounded-full border border-primary/40 px-5 py-2 text-sm font-semibold text-primary bg-primary/5 hover:bg-primary/10"
+              >
+                Use in generator
+              </button>
+            </div>
+            <div class="max-h-60 overflow-y-auto rounded-2xl border border-slate-200">
+              <table class="min-w-full text-xs md:text-sm">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th class="text-left px-3 py-2 font-semibold text-slate-600">Element</th>
+                    <th class="text-right px-3 py-2 font-semibold text-slate-600">Min</th>
+                    <th class="text-right px-3 py-2 font-semibold text-slate-600">Max</th>
+                    <th class="text-left px-3 py-2 font-semibold text-slate-600">Comment template</th>
+                    <th class="px-3 py-2"></th>
+                  </tr>
+                </thead>
+                <tbody id="cb-rows" class="divide-y divide-slate-100">
+                  <tr>
+                    <td colspan="5" class="px-3 py-3 text-center text-slate-500 italic">
+                      No rows yet. Add element ranges and comments, then download or load into the generator.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="tt-surface p-8 space-y-8 mt-12">
         <h2 class="text-2xl font-semibold text-dark">How to use this tool</h2>
 
