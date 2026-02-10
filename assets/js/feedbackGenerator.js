@@ -30,6 +30,7 @@
   const cbLoadBtn = document.getElementById("cb-load");
   const cbRowsTbody = document.getElementById("cb-rows");
   const cbStatusEl = document.getElementById("cb-status");
+  const cbCharCountEl = document.getElementById("cb-char-count");
 
   if (!studentsInput || !commentbankInput) return;
 
@@ -52,6 +53,17 @@
     cbStatusEl.classList.toggle("text-rose-500", isError);
     cbStatusEl.classList.toggle("text-slate-500", !isError);
   };
+
+  const CB_MAX_CHARS = 620;
+
+  function updateBuilderCharCount() {
+    if (!cbTemplateInput || !cbCharCountEl) return;
+    const len = cbTemplateInput.value.length;
+    cbCharCountEl.textContent = String(len);
+    const over = len > CB_MAX_CHARS;
+    cbCharCountEl.classList.toggle("text-rose-600", over);
+    cbCharCountEl.classList.toggle("text-slate-600", !over);
+  }
 
   /**
    * Parse CSV text into array of objects. Handles quoted fields.
@@ -373,6 +385,10 @@
       setBuilderStatus("Min marks must not exceed max marks.", true);
       return;
     }
+    if (template.length > CB_MAX_CHARS) {
+      setBuilderStatus(`Comment template exceeds ${CB_MAX_CHARS} character limit.`, true);
+      return;
+    }
     builderRows.push({
       element,
       min_marks: min,
@@ -556,5 +572,10 @@ element3,41,50,{name} achieved an excellent result ({percentage}%).`;
         }
       });
     });
+  }
+
+  if (cbTemplateInput && cbCharCountEl) {
+    cbTemplateInput.addEventListener("input", updateBuilderCharCount);
+    updateBuilderCharCount();
   }
 })();
