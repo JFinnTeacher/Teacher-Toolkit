@@ -63,6 +63,7 @@ content/
    - Uses **first name only** in `{name}` placeholder (splits on space; first token used).
    - CSV: students (name, gender, score columns) + comment bank (element, min_marks, max_marks, comment_template).
    - Placeholders: `{name}`, `{pronoun}`, `{pronoun_cap}`, `{possessive}`, `{possessive_cap}`, `{object}`, `{score}`, `{max_score}`, `{percentage}`.
+   - **Comment bank builder** (optional section on same page): build comment bank in the browser with inputs for element, min_marks, max_marks, comment_template; add rows, clear all, table with per-row remove. Buttons: "Download comment bank CSV" and "Use in generator" (loads built rows as comment bank). Shortcode guide lists each placeholder with a short description and a "Copy" button to copy the shortcode to clipboard. Highlighted note reminds users to download and save the CSV to a safe location if they want to reuse the comment bank later.
 
 4. **Class lists**
    - Managed via modal on index. Shared between Lollypop Questions and Student Questioning List.
@@ -94,4 +95,5 @@ content/
 
 ## Last significant update
 
-3 February 2026 — Restructured tools into classroom/admin hubs; moved Student Feedback Generator to admin; simplified hero section; added footer with last-updated date.
+- **Comment bank builder** (feedback generator): In-browser UI to build comment bank (element, min/max marks, template); add/remove rows; download as CSV or load into generator. Shortcode guide with descriptions and Copy buttons for each placeholder. Highlighted note to download CSV to a safe location for reuse.
+- Earlier: Restructured tools into classroom/admin hubs; moved Student Feedback Generator to admin; simplified hero; footer with last-updated date (3 February 2026).
