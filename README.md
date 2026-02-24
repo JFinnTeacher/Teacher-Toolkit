@@ -1,52 +1,67 @@
 # The Practical Teacher Toolkit
 
-Tailwind-powered tools, resources, and content for teachers. Classroom tools (timers, questioning helpers, feedback generators), admin tools, and subject-specific resources for Engineering and Computer Science. Each tool and page shares a central design system so updates stay consistent.
+Tailwind-powered tools, resources, and content for teachers. Classroom tools, admin tools, and subject-specific resources for Engineering and Computer Science. All data stays in the browser—GDPR compliant, no server uploads. Domain: **practical-teacher.com**.
+
+## Current status
+
+| Area | Status |
+|------|--------|
+| **Classroom tools** | 3 tools: Countdown Timer, Lollypop Questions, Student Questioning List |
+| **Admin tools** | 1 tool: Student Feedback Generator (with in-browser comment bank builder) |
+| **Resources** | Engineering and Computer Science placeholder pages ("Coming soon") |
+| **Class lists** | Shared across Lollypop Questions and Student Questioning List; count shown on index |
+| **Design** | Tailwind CDN + `base.css`; dark mode; cookie banner; contrast fixes for code boxes |
 
 ## Project layout
 
 ```
-index.html                  # Landing page + tool descriptions
+index.html                  # Landing page: hero, Tools (2 hubs), Resources, class list count, footer
 assets/
-├── css/base.css            # Shared tokens and utility classes
+├── css/base.css            # Design tokens, dark mode, tt-* utilities, code box contrast
 └── js/
-    ├── site.js             # Global helpers + nav behavior
-    ├── timer.js            # Countdown timer logic
-    ├── lollypopQuestions.js   # Lollypop pairing logic
-    ├── studentList.js      # Student questioning list
-    └── feedbackGenerator.js   # Student feedback generator
+    ├── site.js             # TeacherToolkit, storage, classLists, nav, theme, cookie banner, class list count
+    ├── classLists.js       # Class list modal (index only)
+    ├── timer.js
+    ├── lollypopQuestions.js
+    ├── studentList.js
+    └── feedbackGenerator.js
 tools/
-├── timer.html              # Classroom: Countdown timer
-├── lollypop-questions.html # Classroom: Pairing for questioning
-├── student-list.html       # Classroom: Randomizer for cold-calling
-├── feedback-generator.html # Classroom: Generate comments from marks
-└── admin.html              # Admin tools hub (placeholder)
+├── classroom.html          # Classroom tools hub
+├── admin.html              # Admin tools hub
+├── timer.html
+├── lollypop-questions.html
+├── student-list.html
+└── feedback-generator.html
 content/
-├── engineering/            # Engineering resources
-│   └── index.html
-└── computer-science/       # Computer Science resources
-    └── index.html
+├── engineering/index.html      # Placeholder
+└── computer-science/index.html # Placeholder
 ```
 
-The site is organized into **Tools** (Classroom tools, Admin tools) and **Resources** (Engineering, Computer Science). Add new tools under `tools/` and new content under `content/<subject>/`.
+The site is organized into **Tools** (Classroom hub, Admin hub) and **Resources** (Engineering, Computer Science). Add new tools under `tools/` and new content under `content/<subject>/`.
 
 ## Included tools
 
-- **Countdown Timer** – Presets (1–10 min), custom durations, progress ring, optional completion chime, and automatic local-storage persistence.
-- **Lollypop Questions** – Randomly assign responder/questioner pairs, track single-use refusals, and remove students who succeed from the active list.
-- **Student Questioning List** – Paste/upload rosters, mark students as asked or absent, log history, and run non-repeating random selections.
-- **Student Feedback Generator** – Upload a students CSV (name, gender, scores per element) and a comment bank CSV (element, mark ranges, templates). Generates one combined written comment per student with placeholders filled; download results as CSV. All processing runs in the browser.
+### Classroom tools (via `tools/classroom.html`)
 
-Every page loads Tailwind via CDN plus `assets/css/base.css`, meaning brand updates or focus tweaks cascade throughout the toolkit.
+- **Countdown Timer** – Presets (1–10 min), custom durations, progress ring, optional chime, local-storage persistence.
+- **Lollypop Questions** – Pair students to ask and answer; track refusals; remove successful students from rotation.
+- **Student Questioning List** – Paste/upload rosters; mark asked or absent; non-repeating random selection; history log.
+
+### Admin tools (via `tools/admin.html`)
+
+- **Student Feedback Generator** – Upload students CSV (name, gender, scores per element) and comment bank CSV (element, min/max marks, template). Generates one combined comment per student; download results as CSV. Optional **comment bank builder** on the same page: build comment bank in the browser (element, min/max marks, template), shortcode guide with Copy buttons, 620-character limit per template, download CSV or load into generator. Uses first name only for `{name}` placeholder.
+
+Every page loads Tailwind via CDN plus `assets/css/base.css`; brand updates cascade across the site.
 
 ## Resources
 
-Subject-specific content and resources for **Engineering** and **Computer Science** live under `content/engineering/` and `content/computer-science/`. Placeholder pages are in place; add lesson plans, handouts, and other materials as you expand the site.
+Subject-specific content for **Engineering** and **Computer Science** lives under `content/engineering/` and `content/computer-science/`. Placeholder pages show "Coming soon"; add lesson plans and materials as you expand.
 
 ## Class lists
 
-- Open the landing page and use **Manage class lists** to create, rename, and edit reusable rosters. Each list is stored locally in the browser (no cloud sync).
+- Open the landing page and use **Manage class lists** to create, rename, and edit reusable rosters. The index shows how many class lists are saved in a stat box.
+- Each list is stored locally in the browser (no cloud sync). Stored under `teacherToolkit:classLists`.
 - Inside **Lollypop Questions** and **Student Questioning List** you’ll find a class selector. Choose a saved roster to load it instantly, then push your edits back with **Save roster to list**.
-- The selector links back to the landing page for quick management if you need the full modal while working inside a tool.
 
 ## Local usage
 
@@ -62,8 +77,13 @@ No build step is required because scripts are plain ES modules and Tailwind load
 2. In your GitHub repository, open **Settings → Pages**.
 3. Set the source to the `main` branch (root directory).
 4. Save the settings; Pages will publish at `https://<your-username>.github.io/Teacher-Toolkit/`.
+5. Optionally point a custom domain (e.g. practical-teacher.com) in Pages settings.
 
 All links use relative paths, so the site serves correctly from the repository root.
+
+## Continuity
+
+See `UPDATE.md` for detailed conventions, key decisions, and what to update when adding content. Useful when switching machines or Cursor instances.
 
 ## Customization tips
 
