@@ -64,7 +64,6 @@
         >
           <a href="#tools" class="hover:text-primary block py-2">Tools</a>
           <a href="#resources" class="hover:text-primary block py-2">Resources</a>
-          <a href="#how" class="hover:text-primary block py-2">How it works</a>
           <button
             type="button"
             data-theme-toggle
@@ -78,22 +77,21 @@
 
       <main class="space-y-24">
         <section class="tt-surface overflow-hidden px-6 py-10 md:p-12">
-          <div class="max-w-3xl space-y-6">
+          <div class="max-w-3xl space-y-6 mx-auto text-center">
             <span class="tt-pill inline-block">Made for busy teachers</span>
             <h1 class="text-3xl md:text-5xl font-semibold text-dark leading-tight">
               Tools, resources & content for teachers.
             </h1>
-            <p class="text-lg text-slate-600 max-w-2xl">
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
               Classroom tools, admin helpers, and subject-specific resources for Engineering and
-              Computer Science. Every tool is centrally themed with Tailwind CSS and our shared
-              stylesheet so updates stay consistent.
+              Computer Science.
             </p>
-            <p class="text-slate-600 max-w-2xl">
+            <p class="text-slate-600 max-w-2xl mx-auto">
               <strong class="text-dark">Data stays in your browser</strong> — no identifying information is uploaded to any third
               party. This makes the toolkit GDPR compliant and safe for teachers to use with student
               data.
             </p>
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap justify-center gap-3">
               <a
                 href="#tools"
                 class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 font-semibold text-white shadow-glow hover:opacity-90 transition"
@@ -135,35 +133,6 @@
           </div>
         </section>
 
-        <section id="how" class="space-y-6">
-          <p class="tt-section-heading">How it works</p>
-          <div class="tt-grid tt-grid-3">
-            <article class="tt-surface tt-card-outline p-6">
-              <h3 class="text-xl font-semibold text-dark mb-3">Select a tool</h3>
-              <p class="text-slate-600">
-                Pick one of the purpose-built classroom helpers. Each has detailed instructions and a
-                link to its own full-screen workspace.
-              </p>
-            </article>
-            <article class="tt-surface tt-card-outline p-6">
-              <h3 class="text-xl font-semibold text-dark mb-3">Customize once</h3>
-              <p class="text-slate-600">
-                Tailwind handles layout while our external CSS keeps branding consistent. Update CSS
-                tokens to refresh the look everywhere.
-              </p>
-            </article>
-            <article class="tt-surface tt-card-outline p-6">
-              <h3 class="text-xl font-semibold text-dark mb-3">Teach with confidence</h3>
-              <p class="text-slate-600">
-                Tools run entirely in the browser with lightweight JavaScript, so they work on any
-                classroom computer—no accounts or data syncing required. All data remains local;
-                nothing is sent to third parties, keeping the toolkit GDPR compliant and safe for
-                teachers.
-              </p>
-            </article>
-          </div>
-        </section>
-
         <section id="tools" class="space-y-12">
           <div class="flex flex-col gap-3">
             <p class="tt-section-heading">Toolkit lineup</p>
@@ -195,7 +164,7 @@
               <div class="tt-pill w-fit">Admin</div>
               <h3 class="text-2xl font-semibold text-dark">Admin tools</h3>
               <p class="text-slate-600 flex-1">
-                Student feedback generator and other planning, assessment, and reporting utilities.
+                Exam feedback generator and other planning, assessment, and reporting utilities.
               </p>
               <a
                 href="./tools/admin.html"
@@ -232,7 +201,13 @@
               <p class="text-slate-600 flex-1">
                 Resources, lesson ideas, and subject-specific content for teaching Computer Science.
               </p>
-              <p class="text-sm text-slate-500 italic">Coming soon</p>
+              <a
+                href="./content/computer-science/index.html"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
+              >
+                Open Computer Science resources
+                <span aria-hidden="true">→</span>
+              </a>
             </article>
           </div>
         </section>

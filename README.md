@@ -7,7 +7,7 @@ Tailwind-powered tools, resources, and content for teachers. Classroom tools, ad
 | Area | Status |
 |------|--------|
 | **Classroom tools** | 3 tools: Countdown Timer, Lollypop Questions, Student Questioning List |
-| **Admin tools** | 1 tool: Student Feedback Generator (with in-browser comment bank builder) |
+| **Admin tools** | 1 tool: Exam Feedback Generator (with in-browser comment bank builder) |
 | **Resources** | Engineering and Computer Science placeholder pages ("Coming soon") |
 | **Class lists** | Shared across Lollypop Questions and Student Questioning List; count shown on index |
 | **Design** | Tailwind CDN + `base.css`; dark mode; cookie banner; contrast fixes for code boxes |
@@ -49,7 +49,7 @@ The site is organized into **Tools** (Classroom hub, Admin hub) and **Resources*
 
 ### Admin tools (via `tools/admin.html`)
 
-- **Student Feedback Generator** – Upload students CSV (name, gender, scores per element) and comment bank CSV (element, min/max marks, template). Generates one combined comment per student; download results as CSV. Optional **comment bank builder** on the same page: build comment bank in the browser (element, min/max marks, template), shortcode guide with Copy buttons, 620-character limit per template, download CSV or load into generator. Uses first name only for `{name}` placeholder.
+- **Exam Feedback Generator** – Upload students CSV (name, gender, scores per element) and comment bank CSV (element, min/max marks, template). Generates one combined comment per student; download results as CSV. Optional **comment bank builder** on the same page: build comment bank in the browser (element, min/max marks, template), shortcode guide with Copy buttons, 620-character limit per template, download CSV or load into generator. Uses first name only for `{name}` placeholder.
 
 Every page loads Tailwind via CDN plus `assets/css/base.css`; brand updates cascade across the site.
 

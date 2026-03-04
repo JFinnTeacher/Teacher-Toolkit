@@ -1,5 +1,5 @@
 /**
- * Student Feedback Generator
+ * Exam Feedback Generator
  * Upload students CSV + comment bank CSV; generate one combined comment per student.
  * Runs entirely in the browser. No data sent to any server.
  */
