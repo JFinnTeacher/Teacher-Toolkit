@@ -95,5 +95,7 @@ content/
 
 ## Last significant update
 
-- **Comment bank builder** (feedback generator): In-browser UI to build comment bank (element, min/max marks, template); add/remove rows; download as CSV or load into generator. Shortcode guide with descriptions and Copy buttons for each placeholder. Highlighted note to download CSV to a safe location for reuse.
+- **Class list count on index** (PR #5): `index.html` now shows a live count of saved class lists in the hero/stats area. `classLists.js` has a `updateClassListCount()` function that reads from localStorage and updates the DOM in real time; it fires on page load and on every `classlists:changed` event.
+- **Character count for comment template** (PR #4): The comment template input in the comment bank builder shows a live character count and a 620-character limit. Count updates on every keystroke; visual feedback (red text) triggers when the limit is exceeded.
+- **Comment bank builder** (PR #3): In-browser UI to build comment bank (element, min/max marks, template); add/remove rows; download as CSV or load into generator. Shortcode guide with descriptions and Copy buttons for each placeholder. Highlighted note to download CSV to a safe location for reuse.
 - Earlier: Restructured tools into classroom/admin hubs; moved Student Feedback Generator to admin; simplified hero; footer with last-updated date (3 February 2026).
