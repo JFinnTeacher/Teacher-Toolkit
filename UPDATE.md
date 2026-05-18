@@ -28,7 +28,7 @@ assets/
     feedbackGenerator.js
 tools/
   classroom.html        # Classroom tools hub: Timer, Lollypop Questions, Student Questioning List
-  admin.html            # Admin tools hub: Student Feedback Generator
+  admin.html            # Admin tools hub: Exam Feedback Generator
   timer.html
   lollypop-questions.html
   student-list.html
@@ -53,13 +53,13 @@ content/
 
 1. **Tools organisation**
    - **Classroom tools** (Timer, Lollypop Questions, Student Questioning List) → `tools/classroom.html` hub.
-   - **Admin tools** (Student Feedback Generator) → `tools/admin.html` hub.
+   - **Admin tools** (Exam Feedback Generator) → `tools/admin.html` hub.
    - Index shows two side-by-side cards: Classroom tools, Admin tools.
 
 2. **Resources**
    - Engineering and Computer Science show "Coming soon" on index. Links to `content/engineering/` and `content/computer-science/` are placeholders.
 
-3. **Student Feedback Generator**
+3. **Exam Feedback Generator**
    - Uses **first name only** in `{name}` placeholder (splits on space; first token used).
    - CSV: students (name, gender, score columns) + comment bank (element, min_marks, max_marks, comment_template).
    - Placeholders: `{name}`, `{pronoun}`, `{pronoun_cap}`, `{possessive}`, `{possessive_cap}`, `{object}`, `{score}`, `{max_score}`, `{percentage}`.
@@ -95,5 +95,5 @@ content/
 
 ## Last significant update
 
-- **Comment bank builder** (feedback generator): In-browser UI to build comment bank (element, min/max marks, template); add/remove rows; download as CSV or load into generator. Shortcode guide with descriptions and Copy buttons for each placeholder. Highlighted note to download CSV to a safe location for reuse.
-- Earlier: Restructured tools into classroom/admin hubs; moved Student Feedback Generator to admin; simplified hero; footer with last-updated date (3 February 2026).
+- **Comment bank builder** (exam feedback generator): In-browser UI to build comment bank (element, min/max marks, template); add/remove rows; download as CSV or load into generator. Shortcode guide with descriptions and Copy buttons for each placeholder. Highlighted note to download CSV to a safe location for reuse.
+- Earlier: Restructured tools into classroom/admin hubs; moved Exam Feedback Generator to admin; simplified hero; footer with last-updated date (3 February 2026).

@@ -238,8 +238,24 @@ const initCookieBanner = () => {
   });
 };
 
+const initClasslistCount = () => {
+  const el = document.getElementById("classlist-count");
+  if (!el) return;
+  const toolkit = window.TeacherToolkit;
+  if (!toolkit?.classLists) return;
+
+  const update = () => {
+    const data = toolkit.classLists.read();
+    el.textContent = String(data.lists?.length ?? 0);
+  };
+
+  update();
+  window.addEventListener("classlists:changed", update);
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initThemeToggle();
   initCookieBanner();
+  initClasslistCount();
 });

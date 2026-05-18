@@ -94,18 +94,10 @@
     studentsInput.value = current.students.join("\n");
   };
 
-  const updateCountDisplay = () => {
-    const el = document.getElementById("classlist-count");
-    if (!el) return;
-    const data = toolkit.classLists.read();
-    el.textContent = String(data.lists?.length ?? 0);
-  };
-
   const render = () => {
     ensureActive();
     renderListNav();
     hydrateDetails();
-    updateCountDisplay();
   };
 
   let focusHandler = null;
@@ -210,8 +202,6 @@
   window.addEventListener("classlists:changed", () => {
     render();
   });
-
-  updateCountDisplay();
 
   const focusableSelectors =
     'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])';
