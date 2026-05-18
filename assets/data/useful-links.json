@@ -1,0 +1,425 @@
+{
+  "_note": "Add links to each category below. The IDEs category uses subgroups (Offline / Online) instead of a flat links array.",
+  "_link_schema": {
+    "title": "Display name of the link",
+    "url": "https://example.com",
+    "description": "One or two sentences describing the link and who it suits.",
+    "badges": ["one or more badge keys from _badges below"]
+  },
+  "_badges": {
+    "Student":          "Resource is suitable for student use",
+    "Teacher":          "Resource is aimed at teachers",
+    "Both":             "Resource is useful for both teachers and students",
+    "Interactive":      "Resource is a game, quiz, or interactive tool",
+    "Login Required":   "An account or login is needed to access the resource",
+    "Teacher Resource": "Use on Books section items — teacher-facing reference material"
+  },
+  "categories": [
+    {
+      "id": "general",
+      "title": "General Resources",
+      "links": [
+        {
+          "title": "Teach with ICT",
+          "url": "https://teachwithict.weebly.com",
+          "description": "Strategies and resources for teaching ICT and Computer Science.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "Computer Science Circles",
+          "url": "https://cscircles.cemc.uwaterloo.ca/",
+          "description": "University of Waterloo introduction to CS and Python. Free to use — login available to save progress.",
+          "badges": ["Student"]
+        },
+        {
+          "title": "Teckno CS Course",
+          "url": "https://teckno.dell.com/courses/",
+          "description": "Free Computer Science and coding courses from Dell, aimed at Leaving Certificate CS students.",
+          "badges": ["Both"]
+        }
+      ]
+    },
+    {
+      "id": "ides",
+      "title": "IDEs & Code Editors",
+      "subgroups": [
+        {
+          "title": "Offline",
+          "links": [
+            {
+              "title": "Thonny",
+              "url": "https://thonny.org/",
+              "description": "A beginner-friendly Python IDE with a built-in debugger. Free to download. Ideal for students writing their first Python programs.",
+              "badges": ["Student"]
+            },
+            {
+              "title": "Visual Studio Code",
+              "url": "https://code.visualstudio.com/",
+              "description": "A powerful, free code editor from Microsoft supporting Python, JavaScript, and many other languages via extensions.",
+              "badges": ["Both"]
+            },
+            {
+              "title": "GitHub Desktop",
+              "url": "https://github.com/apps/desktop",
+              "description": "A GUI client for cloning and managing Git repositories from GitHub without using the command line.",
+              "badges": ["Both"]
+            },
+            {
+              "title": "VS Codium",
+              "url": "https://vscodium.com/",
+              "description": "An open-source version of VS Code with Microsoft telemetry removed. Identical in features but fully open-source.",
+              "badges": ["Both"]
+            }
+          ]
+        },
+        {
+          "title": "Online",
+          "links": [
+            {
+              "title": "Replit",
+              "url": "https://replit.com/",
+              "description": "Browser-based IDE supporting many languages including Python. Free tier available but has limitations on usage.",
+              "badges": ["Student", "Login Required"]
+            },
+            {
+              "title": "Google Colab",
+              "url": "https://colab.research.google.com/",
+              "description": "A free, cloud-based Jupyter notebook environment from Google. Good for Python and data analysis work. Requires a Google account.",
+              "badges": ["Both", "Login Required"]
+            },
+            {
+              "title": "Trinket.io",
+              "url": "https://trinket.io/",
+              "description": "A simple browser-based Python editor — no login needed for basic use. Note: the free version is limited to Python 2.",
+              "badges": ["Student"]
+            },
+            {
+              "title": "VSCode Dev",
+              "url": "https://vscode.dev/",
+              "description": "VS Code running in the browser. Opens GitHub repos directly — useful when students cannot install software on school devices.",
+              "badges": ["Both"]
+            },
+            {
+              "title": "Codepad",
+              "url": "https://codepad.app/",
+              "description": "A browser-based code editor similar to Replit and Trinket, with more flexibility than Trinket. Currently free to use.",
+              "badges": ["Student"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "python",
+      "title": "Python",
+      "links": [
+        {
+          "title": "Turing Labs (Amazon Future Engineer)",
+          "url": "https://www.amazonfutureengineer.co.uk/turinglab",
+          "description": "Structured Python learning from Amazon Future Engineer. Suitable for students beginning to develop their Python skills.",
+          "badges": ["Student"]
+        },
+        {
+          "title": "Python Cheatsheet",
+          "url": "https://quickref.me/python",
+          "description": "A concise reference covering Python syntax, data types, loops, functions, and more. Best for students who already know the basics and need a quick lookup.",
+          "badges": ["Both"]
+        }
+      ]
+    },
+    {
+      "id": "networking",
+      "title": "Networking",
+      "links": [
+        {
+          "title": "Network Animations",
+          "url": "https://aboelela.site/projects/net-seal/animations/",
+          "description": "Animated explanations of how networks operate. Useful as a visual aid when introducing networking concepts at LC level.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "Network Protocol Matching Quiz",
+          "url": "https://wordwall.net/resource/17098513/computing/ks4-network-protocols",
+          "description": "A Wordwall word-matching quiz on network protocols. Works well as a classroom starter or homework task for the LC networking topic.",
+          "badges": ["Student", "Interactive"]
+        },
+        {
+          "title": "Network Hardware Word Match Quiz",
+          "url": "https://wordwall.net/resource/4384280/computing/14-network-hardware",
+          "description": "A Wordwall word-match quiz on network hardware. Works well as a classroom starter or homework task for the LC networking topic.",
+          "badges": ["Student", "Interactive"]
+        },
+        {
+          "title": "Network Design Drag and Drop",
+          "url": "https://www.101computing.net/network-design-drag-drop/",
+          "description": "A drag-and-drop activity for identifying and placing common network hardware components. Good for consolidating LC networking content.",
+          "badges": ["Student", "Interactive"]
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "title": "Artificial Intelligence",
+      "links": [
+        {
+          "title": "ChatGPT Prompting Cheatsheet",
+          "url": "https://quickref.me/chatgpt",
+          "description": "A concise reference for writing effective prompts for ChatGPT and other large language models.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "Black Box AI Explainer (TechTarget)",
+          "url": "https://www.techtarget.com/whatis/definition/black-box-AI",
+          "description": "A clear explanation of what black box AI is and how it works. Relevant to the LC AI strand.",
+          "badges": ["Both"]
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "title": "Data & Analytics",
+      "links": [
+        {
+          "title": "Our World in Data",
+          "url": "https://ourworldindata.org/",
+          "description": "Free, open-access datasets and visualisations on global topics — health, education, climate, and more. No login required. A strong starting point for ALT2 data projects.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "Statista",
+          "url": "https://www.statista.com/",
+          "description": "A large statistics and market data platform. Some data is freely accessible. Useful for finding ready-made datasets for ALT2.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "Kaggle",
+          "url": "https://www.kaggle.com/",
+          "description": "A large library of free, open datasets across many topics. No login required to browse. Good for ALT2 — guide students to pick smaller, well-structured datasets.",
+          "badges": ["Both"]
+        }
+      ]
+    },
+    {
+      "id": "logic-gates",
+      "title": "Logic Gates & Circuits",
+      "links": [
+        {
+          "title": "Logicly",
+          "url": "https://logic.ly/",
+          "description": "A drag-and-drop logic gate simulator with a free trial available in-browser. Well suited to quick classroom demonstrations of AND, OR, NOT, and compound gates.",
+          "badges": ["Both", "Interactive"]
+        },
+        {
+          "title": "Logic Circuit",
+          "url": "https://logiccircuit.org/download.html",
+          "description": "Free downloadable software for building logic circuits and generating truth tables automatically. Useful for checking student work.",
+          "badges": ["Both", "Interactive"]
+        },
+        {
+          "title": "EveryCircuit",
+          "url": "https://everycircuit.com/app",
+          "description": "An online circuit simulator that includes logic gates alongside broader electronics components. More expansive than Logicly.",
+          "badges": ["Both", "Interactive"]
+        }
+      ]
+    },
+    {
+      "id": "operating-systems",
+      "title": "Operating Systems",
+      "links": [
+        {
+          "title": "OS Definitions Quiz",
+          "url": "https://wordwall.net/resource/17405688/-8-computer-operating-system-",
+          "description": "A Wordwall activity matching operating system terms to their definitions. Works well as a classroom starter for the OS topic.",
+          "badges": ["Student", "Interactive"]
+        },
+        {
+          "title": "OnWorks — Virtual Machines Online",
+          "url": "https://www.onworks.net/programs/vm-online",
+          "description": "Run Windows, Mac, or Linux in a virtual machine in the browser — no installation needed. A practical classroom tool for demonstrating different OS environments.",
+          "badges": ["Both", "Interactive"]
+        },
+        {
+          "title": "PCjs Machines",
+          "url": "https://www.pcjs.org/",
+          "description": "Emulates vintage computers running old operating systems in the browser. Good for showing students OS history and how much interfaces have changed.",
+          "badges": ["Both", "Interactive"]
+        },
+        {
+          "title": "WebOS.js",
+          "url": "https://webos.js.org/",
+          "description": "Run versions of operating systems including Mac OS in the browser. More of a curiosity link — useful for illustrating OS history.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "WinWorld OS Library",
+          "url": "https://winworldpc.com/library/operating-systems",
+          "description": "A library of disk images for vintage operating systems — useful for demonstrating OS evolution in class rather than as a practical tool.",
+          "badges": ["Both"]
+        }
+      ]
+    },
+    {
+      "id": "microbit",
+      "title": "Micro:bit",
+      "links": [
+        {
+          "title": "Micro:bit and AI",
+          "url": "https://microbit.org/get-started/user-guide/microbit-createai/",
+          "description": "Explore AI and machine learning through movement using the Micro:bit. Requires a physical Micro:bit device.",
+          "badges": ["Student"]
+        }
+      ]
+    },
+    {
+      "id": "computational-thinking",
+      "title": "Computational Thinking",
+      "links": [
+        {
+          "title": "Computational Thinking Guide",
+          "url": "https://www.nicholawilkin.com/single-post/computational-thinking",
+          "description": "An overview of what computational thinking is and how to teach it. Teacher-facing background reading.",
+          "badges": ["Teacher"]
+        },
+        {
+          "title": "Logic Puzzles (Puzzle Baron)",
+          "url": "https://logic.puzzlebaron.com/",
+          "description": "Free logic grid puzzles that develop logical reasoning skills. Can be shared directly with students as a starter or extension task.",
+          "badges": ["Student", "Interactive"]
+        },
+        {
+          "title": "CS Planning Tool (National Workshop 7)",
+          "url": "https://docs.google.com/spreadsheets/d/1QDIDJwHmNkSO-PKfXtJbgIvcpnAd9Bnt/edit#gid=852131076",
+          "description": "A curriculum planning spreadsheet from LC CS National Workshop 7. Teacher-facing — check if still current before sharing.",
+          "badges": ["Teacher"]
+        }
+      ]
+    },
+    {
+      "id": "classroom-tools",
+      "title": "Classroom Tools & Games",
+      "links": [
+        {
+          "title": "Code Puzzle",
+          "url": "https://www.codepuzzle.io/en",
+          "description": "Create Parsons-style puzzles from code — students put lines in the correct order. Good for consolidation activities.",
+          "badges": ["Both", "Interactive"]
+        },
+        {
+          "title": "Code Puzzle — Example",
+          "url": "https://www.codepuzzle.io/p/PFU2CS",
+          "description": "A ready-made Code Puzzle example — put the code in the correct order. Useful to show students how the tool works.",
+          "badges": ["Student", "Interactive"]
+        },
+        {
+          "title": "Deck of Cards",
+          "url": "https://deck.of.cards",
+          "description": "A virtual deck of cards for demonstrating sorting methods in class. Works well alongside a sorting algorithms explanation.",
+          "badges": ["Both", "Interactive"]
+        },
+        {
+          "title": "Sorting Algorithms Visualiser (Toptal)",
+          "url": "https://www.toptal.com/developers/sorting-algorithms",
+          "description": "Animates common sorting algorithms side by side. Great as a classroom demo — students can see the difference between algorithms visually.",
+          "badges": ["Both", "Interactive"]
+        },
+        {
+          "title": "Flippy Bit and the Attack of the Hexadecimals",
+          "url": "https://flippybitandtheattackofthehexadecimalsfrombase16.com/",
+          "description": "A browser game that teaches hexadecimal conversion. A fun consolidation activity after introducing binary and hex.",
+          "badges": ["Student", "Interactive"]
+        },
+        {
+          "title": "Nearpod Library",
+          "url": "https://nearpod.com/library/",
+          "description": "Interactive presentations for the classroom including quizzes and polls. Free tier available. Useful for formative assessment across CS topics.",
+          "badges": ["Teacher", "Login Required"]
+        },
+        {
+          "title": "Logic Puzzles (Puzzle Baron)",
+          "url": "https://logic.puzzlebaron.com/",
+          "description": "Logic grid puzzles — good for developing logical reasoning. Works well as a starter or extension task for early finishers.",
+          "badges": ["Student", "Interactive"]
+        }
+      ]
+    },
+    {
+      "id": "github",
+      "title": "GitHub Resources",
+      "links": [
+        {
+          "title": "Awesome Python",
+          "url": "https://github.com/vinta/awesome-python",
+          "description": "A curated list of Python frameworks, libraries, and resources. More useful for teachers and advanced LC students — the breadth can be overwhelming for beginners.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "JavaScript30",
+          "url": "https://github.com/wesbos/JavaScript30",
+          "description": "A 30-day JavaScript challenge — 30 apps in 30 days with no frameworks or libraries. Good for LC students who want to build real things with JavaScript.",
+          "badges": ["Student"]
+        },
+        {
+          "title": "The Algorithms",
+          "url": "https://github.com/TheAlgorithms",
+          "description": "Data structures and algorithms implemented in many languages. Useful for teachers preparing content and for strong LC students studying implementations.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "The Odin Project",
+          "url": "https://github.com/TheOdinProject",
+          "description": "An open-source full-stack web development curriculum. Suitable for motivated LC students who want a structured self-study path beyond the classroom.",
+          "badges": ["Student"]
+        },
+        {
+          "title": "Build Your Own X",
+          "url": "https://github.com/codecrafters-io/build-your-own-x",
+          "description": "Step-by-step guides to recreating technologies from scratch — databases, shells, web servers, and more. Primarily teacher-level but inspiring for advanced LC students.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "JavaScript Questions",
+          "url": "https://github.com/lydiahallie/javascript-questions",
+          "description": "A long list of advanced JavaScript questions with clear explanations. Good for LC students consolidating their JavaScript knowledge.",
+          "badges": ["Student"]
+        },
+        {
+          "title": "OSSU Computer Science",
+          "url": "https://github.com/ossu/computer-science",
+          "description": "A roadmap to a full CS education using free online resources. Primarily teacher-facing — useful for understanding the broader CS landscape beyond the LC course.",
+          "badges": ["Teacher"]
+        }
+      ]
+    },
+    {
+      "id": "youtube",
+      "title": "YouTube Channels",
+      "links": [
+        {
+          "title": "Corey Schafer",
+          "url": "https://www.youtube.com/@coreyms/playlists",
+          "description": "High-quality coding tutorials covering Python, Django, Git, and more. Clear and well-paced — suited to LC students who want in-depth explanations.",
+          "badges": ["Both"]
+        },
+        {
+          "title": "Daniel Murray Makes",
+          "url": "https://www.youtube.com/@DanielMurrayMakes/playlists",
+          "description": "A CS teacher from Dublin covering topics relevant to the Irish LC CS course. Worth sharing directly with students.",
+          "badges": ["Both"]
+        }
+      ]
+    },
+    {
+      "id": "books",
+      "title": "Books",
+      "links": [
+        {
+          "title": "100 Ideas for Secondary Teachers: Outstanding Computing Lessons",
+          "url": "https://www.bloomsbury.com/uk/100-ideas-for-secondary-teachers-outstanding-computing-lessons-9781472984401/",
+          "description": "A practical book of 100 ready-to-use ideas for teaching computing at secondary level. Published by Bloomsbury.",
+          "badges": ["Teacher Resource"]
+        }
+      ]
+    }
+  ]
+}

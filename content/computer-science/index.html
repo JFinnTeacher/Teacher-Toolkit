@@ -51,21 +51,37 @@
         <div class="text-center space-y-4">
           <h1 class="text-3xl font-semibold text-dark">Computer Science</h1>
           <p class="text-slate-600 max-w-2xl mx-auto">
-            Resources, lesson ideas, and subject-specific content for teaching Computer Science.
+<<<<<<< HEAD
+              Resources, lesson ideas, and subject-specific content for teaching Computer Science at
+            Junior and Leaving Certificate level. More materials will be added here over time.
           </p>
         </div>
 
-        <section class="space-y-4">
-          <div class="tt-grid gap-6 md:grid-cols-2">
-            <article class="tt-surface tt-card-outline p-6 flex flex-col gap-3">
-              <div class="tt-pill w-fit">Python</div>
-              <h2 class="text-xl font-semibold text-dark">Searches &amp; ordering in Python</h2>
+        <section class="space-y-6">
+
+          <!-- Tag filter -->
+          <div id="tag-filter" class="flex flex-wrap gap-2">
+            <button
+              data-tag="all"
+              class="tag-btn inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold bg-primary text-white transition-colors"
+            >All</button>
+            <button
+              data-tag="General"
+              class="tag-btn inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-primary hover:text-white transition-colors"
+            >General</button>
+          </div>
+
+          <!-- Resource cards -->
+          <div id="resource-grid" class="tt-grid gap-6 md:grid-cols-2">
+            <article data-tags="General" class="tt-surface tt-card-outline p-6 flex flex-col gap-3">
+              <div class="tt-pill w-fit">General</div>
+              <h2 class="text-xl font-semibold text-dark">Useful Links</h2>
               <p class="text-slate-600 text-sm flex-1">
-                Algorithms and examples for linear/binary search and common ordering techniques in
-                Python, designed for classroom use.
+                A curated library of tools, resources, and references for CS — covering IDEs,
+                Python, networking, AI, data sources, logic gates, and more.
               </p>
               <a
-                href="./searches-ordering-python.html"
+                href="./useful-links.html"
                 class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
               >
                 Open resource
@@ -74,10 +90,41 @@
             </article>
           </div>
 
-          <p class="text-xs text-slate-500 text-center mt-4">
+          <p id="no-results" class="hidden text-sm text-slate-400 italic text-center">No resources match this filter.</p>
+
+          <p class="text-xs text-slate-500 text-center">
             More Computer Science resources will be added here over time.
           </p>
         </section>
+
+        <script>
+          const cards = document.querySelectorAll('#resource-grid [data-tags]');
+          const buttons = document.querySelectorAll('.tag-btn');
+          const noResults = document.getElementById('no-results');
+
+          buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+              const tag = btn.dataset.tag;
+
+              buttons.forEach(b => {
+                b.classList.remove('bg-primary', 'text-white');
+                b.classList.add('bg-slate-100', 'text-slate-700');
+              });
+              btn.classList.add('bg-primary', 'text-white');
+              btn.classList.remove('bg-slate-100', 'text-slate-700');
+
+              let visible = 0;
+              cards.forEach(card => {
+                const tags = card.dataset.tags.split(',').map(t => t.trim());
+                const show = tag === 'all' || tags.includes(tag);
+                card.style.display = show ? '' : 'none';
+                if (show) visible++;
+              });
+
+              noResults.classList.toggle('hidden', visible > 0);
+            });
+          });
+        </script>
       </main>
     </div>
     <div
