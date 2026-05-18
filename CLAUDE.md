@@ -19,6 +19,7 @@ context — fast, offline-tolerant, no login, no cloud dependency.
 index.html              # Landing page
 assets/
   css/base.css          # Shared design tokens — edit here to restyle everything
+  data/                 # JSON data files for JS-rendered pages
   js/
     site.js             # Global helpers + nav
     timer.js
@@ -59,10 +60,32 @@ _briefs/                # Content briefs (not served by GitHub Pages)
 - Do not break the relative path structure
 - Do not use `innerHTML` with unsanitised user input
 
+## Git workflow
+- **Working branch is `site-updates`** — all edits go here, never directly to `main`
+- Write files to `C:\Users\J Finn\Documents\GitHub\Teacher-Toolkit` (the main repo working directory)
+- Do not create Claude worktrees or Claude branches — they are invisible to GitHub Desktop
+- Push and merge to `main` are handled by the user via GitHub Desktop
+- Never attempt `git push` or `gh pr create` via CLI
+
+## JSON-driven content pages
+JSON-driven pages are the exception — only use this pattern when explicitly requested.
+
+The default for all content pages is to generate static HTML directly from the Markdown brief. Do not introduce a JSON data file unless the user specifically asks for one.
+
+When JSON is requested:
+- Data file: `assets/data/<page-name>.json`
+- Page fetches the JSON via `fetch()` and renders cards/sections with vanilla JS
+- The JSON includes `_note`, `_link_schema`, and `_badges` keys as inline documentation — these are ignored by the rendering JS
+- These pages require HTTP to run (GitHub Pages serves them correctly; use `python -m http.server 8000` for local testing)
+
+Current JSON-driven pages:
+- `content/computer-science/useful-links.html` → `assets/data/useful-links.json`
+
 ## Current focus / known gaps
-- `content/engineering/` and `content/computer-science/` are placeholder pages — need real content
+- `content/engineering/` is a placeholder — needs real content
 - `tools/admin.html` is a placeholder — admin tools not yet defined
 - Class list management currently lives only on the landing page modal
+- CS index tag filter buttons must be updated manually when new resource cards are added
 
 ## Content brief workflow
 New content pages are commissioned via Markdown briefs in `_briefs/`.
