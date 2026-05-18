@@ -1,0 +1,98 @@
+{
+  "_note": "Add links to each category below. The IDEs category uses subgroups (Offline / Online) instead of a flat links array.",
+  "_link_schema": {
+    "title": "Display name of the link",
+    "url": "https://example.com",
+    "description": "One or two sentences describing the link and who it suits.",
+    "badges": ["one or more badge keys from _badges below"]
+  },
+  "_badges": {
+    "Student":          "Resource is suitable for student use",
+    "Teacher":          "Resource is aimed at teachers",
+    "Both":             "Resource is useful for both teachers and students",
+    "Interactive":      "Resource is a game, quiz, or interactive tool",
+    "Login Required":   "An account or login is needed to access the resource",
+    "Teacher Resource": "Use on Books section items — teacher-facing reference material"
+  },
+  "categories": [
+    {
+      "id": "general",
+      "title": "General Resources",
+      "links": []
+    },
+    {
+      "id": "ides",
+      "title": "IDEs & Code Editors",
+      "subgroups": [
+        {
+          "title": "Offline",
+          "links": []
+        },
+        {
+          "title": "Online",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "python",
+      "title": "Python",
+      "links": []
+    },
+    {
+      "id": "networking",
+      "title": "Networking",
+      "links": []
+    },
+    {
+      "id": "ai",
+      "title": "Artificial Intelligence",
+      "links": []
+    },
+    {
+      "id": "data",
+      "title": "Data & Analytics",
+      "links": []
+    },
+    {
+      "id": "logic-gates",
+      "title": "Logic Gates & Circuits",
+      "links": []
+    },
+    {
+      "id": "operating-systems",
+      "title": "Operating Systems",
+      "links": []
+    },
+    {
+      "id": "microbit",
+      "title": "Micro:bit",
+      "links": []
+    },
+    {
+      "id": "computational-thinking",
+      "title": "Computational Thinking",
+      "links": []
+    },
+    {
+      "id": "classroom-tools",
+      "title": "Classroom Tools & Games",
+      "links": []
+    },
+    {
+      "id": "github",
+      "title": "GitHub Resources",
+      "links": []
+    },
+    {
+      "id": "youtube",
+      "title": "YouTube Channels",
+      "links": []
+    },
+    {
+      "id": "books",
+      "title": "Books",
+      "links": []
+    }
+  ]
+}
