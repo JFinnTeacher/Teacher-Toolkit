@@ -42,8 +42,41 @@ _briefs/                # Content briefs (not served by GitHub Pages)
 - **Feedback Generator** — CSV upload (students + comment bank), generates comments, download as CSV
 
 ## Design conventions
-- Tailwind utility classes are the primary styling approach
-- `assets/css/base.css` holds shared tokens — always update here for global changes
+Visual direction: **"drawing sheet"** — a technical/blueprint aesthetic. Light theme
+is a pale "whiteprint" (blue-tinted paper, blue linework); dark theme is a true
+blueprint (deep blue ground, white/cyan linework). Accent is a single "redline" red,
+used the way an engineer's red pencil marks up a drawing — sparingly, for
+links/CTAs/tags. Don't reintroduce the old blue/orange or `rounded-full` pill look.
+
+- **Typography has three roles, not one face:**
+  - Mono (`font-mono`, Cascadia Code/Consolas) — nav, buttons, tags, labels, footer metadata
+  - Serif (`font-serif`, Cambria) — page-level H1s and content/lesson headlines only
+  - Sans (Inter, default body) — everything else: paragraphs, form labels, tool UI text
+- **Colors are CSS variables, not hardcoded hex.** `assets/css/base.css` defines
+  `--tt-primary-rgb`, `--tt-ink-rgb`, and `--tt-slate-{50..900}-rgb` as
+  space-separated RGB triples (light values in `:root`, dark values under
+  `@media (prefers-color-scheme: dark)` and `[data-theme="dark"]`). Every page's
+  `tailwind.config` maps `primary`/`accent`/`dark`/`slate` to
+  `rgb(var(--tt-...-rgb) / <alpha-value>)`. **Keep the RGB triples space-separated**
+  (`183 64 42`, not `183, 64, 42`) — commas silently break Tailwind's
+  opacity-modifier syntax and colors fall back to inherited text color with no error.
+- **Radius and shadow are centralized too**, via `borderRadius` (`full`, `2xl`,
+  `3xl`) and `boxShadow.glow` overrides in the same `tailwind.config` block, so
+  `rounded-full` / `shadow-glow` render as the small-radius, flat-shadow look
+  sitewide without per-element edits.
+- **Shared component classes** in `base.css`: `.tt-surface` (flat bordered panel),
+  `.tt-pill` (mono tag chip), `.tt-nav-link` (hairline-underlined link),
+  `.tt-frame-corners` (accent corner brackets on hero panels),
+  `.tt-section-heading` (mono eyebrow label), `.tt-sheet` / `.tt-ruler-top` /
+  `.tt-ruler-left` / `.tt-sheet-corner` / `.tt-sheet-content` (the coordinate-ruler
+  page frame), `.tt-title-block` (engineering-drawing-style footer metadata table).
+- **Every page needs the same `tailwind.config` block** (colors, fontFamily,
+  borderRadius, boxShadow) in its `<head>` — copy it from an existing page (e.g.
+  `tools/timer.html`) rather than writing it from scratch.
+- **Every page wraps `<body>` content in the sheet frame** (`.tt-sheet` >
+  `.tt-sheet-corner` + `.tt-ruler-top` + `.tt-ruler-left` + `.tt-sheet-content`) and
+  ends with a `.tt-title-block` footer before the cookie banner. Copy this shell
+  from an existing page rather than reconstructing it.
 - All pages load Tailwind from CDN + `assets/css/base.css`
 - New tools go in `tools/`, new content under `content/<subject>/`
 - Use relative paths everywhere (site must work from repo root on GitHub Pages)
@@ -83,9 +116,11 @@ Current JSON-driven pages:
 
 ## Current focus / known gaps
 - `content/engineering/` is a placeholder — needs real content
-- `tools/admin.html` is a placeholder — admin tools not yet defined
 - Class list management currently lives only on the landing page modal
 - CS index tag filter buttons must be updated manually when new resource cards are added
+- Header/footer/cookie-banner markup is duplicated per page (no build step means no
+  shared partial) — copy drift is possible; keep pages in sync by hand when editing
+  shared chrome
 
 ## Content brief workflow
 New content pages are commissioned via Markdown briefs in `_briefs/`.

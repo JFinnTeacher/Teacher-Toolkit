@@ -10,7 +10,7 @@ Tailwind-powered tools, resources, and content for teachers. Classroom tools, ad
 | **Admin tools** | 1 tool: Exam Feedback Generator (with in-browser comment bank builder) |
 | **Resources** | Engineering and Computer Science placeholder pages ("Coming soon") |
 | **Class lists** | Shared across Lollypop Questions and Student Questioning List; count shown on index |
-| **Design** | Tailwind CDN + `base.css`; dark mode; cookie banner; contrast fixes for code boxes |
+| **Design** | "Drawing sheet" visual system — whiteprint (light) / blueprint (dark) theme, mono+serif+sans type, coordinate-ruler page frame, engineering title-block footer. Tailwind CDN + `base.css`; dark mode; cookie banner |
 
 ## Project layout
 
@@ -34,7 +34,7 @@ tools/
 └── feedback-generator.html
 content/
 ├── engineering/index.html      # Placeholder
-└── computer-science/index.html # Placeholder
+└── computer-science/           # Index, Useful Links (JSON-driven), Searches & Ordering in Python
 ```
 
 The site is organized into **Tools** (Classroom hub, Admin hub) and **Resources** (Engineering, Computer Science). Add new tools under `tools/` and new content under `content/<subject>/`.
@@ -52,6 +52,17 @@ The site is organized into **Tools** (Classroom hub, Admin hub) and **Resources*
 - **Exam Feedback Generator** – Upload students CSV (name, gender, scores per element) and comment bank CSV (element, min/max marks, template). Generates one combined comment per student; download results as CSV. Optional **comment bank builder** on the same page: build comment bank in the browser (element, min/max marks, template), shortcode guide with Copy buttons, 620-character limit per template, download CSV or load into generator. Uses first name only for `{name}` placeholder.
 
 Every page loads Tailwind via CDN plus `assets/css/base.css`; brand updates cascade across the site.
+
+## Design
+
+The site uses a **"drawing sheet"** visual system: light mode is a pale "whiteprint"
+(blue-tinted paper, blue linework), dark mode is a true blueprint (deep blue ground,
+white/cyan linework), and a single "redline" red accent is used the way an
+engineer's red pencil marks up a drawing — for links, buttons, and tags. Typography
+splits into three roles: mono for navigation/labels/buttons, serif for page
+headlines, sans (Inter) for body text. Every page shares a coordinate-ruler frame
+and an engineering title-block footer. See `CLAUDE.md` → *Design conventions* for
+the underlying CSS variables and Tailwind config pattern.
 
 ## Resources
 
@@ -87,6 +98,6 @@ See `UPDATE.md` for detailed conventions, key decisions, and what to update when
 
 ## Customization tips
 
-- Update colors, fonts, or shadows in `assets/css/base.css` to restyle every page instantly.
-- Extend Tailwind tokens inside `index.html` (and each tool HTML file) if you need additional utilities.
+- Colors, radius, and shadow are CSS variables in `assets/css/base.css` — edit them there to restyle every page at once. Each page's inline `tailwind.config` maps Tailwind's `primary`/`accent`/`dark`/`slate` colors to those variables via `rgb(var(...) / <alpha-value>)`, so keep the RGB triples space-separated (`183 64 42`, not `183, 64, 42`) — commas silently break the opacity-modifier syntax.
+- Extend Tailwind tokens inside `index.html` (and each tool HTML file) if you need additional utilities — copy the existing `tailwind.config` block from another page rather than starting from scratch, so new pages stay visually consistent.
 - Each tool’s JS module includes small helper functions; feel free to expand them or import new scripts if you add more tools later.
