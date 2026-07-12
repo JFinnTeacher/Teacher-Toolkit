@@ -16,8 +16,33 @@
         theme: {
           extend: {
             colors: {
-              primary: "#2563eb",
-              accent: "#f97316",
+              primary: "rgb(var(--tt-primary-rgb) / <alpha-value>)",
+              accent: "rgb(var(--tt-primary-rgb) / <alpha-value>)",
+              dark: "rgb(var(--tt-ink-rgb) / <alpha-value>)",
+              slate: {
+                50: "rgb(var(--tt-slate-50-rgb) / <alpha-value>)",
+                100: "rgb(var(--tt-slate-100-rgb) / <alpha-value>)",
+                200: "rgb(var(--tt-slate-200-rgb) / <alpha-value>)",
+                300: "rgb(var(--tt-slate-300-rgb) / <alpha-value>)",
+                400: "rgb(var(--tt-slate-400-rgb) / <alpha-value>)",
+                500: "rgb(var(--tt-slate-500-rgb) / <alpha-value>)",
+                600: "rgb(var(--tt-slate-600-rgb) / <alpha-value>)",
+                700: "rgb(var(--tt-slate-700-rgb) / <alpha-value>)",
+                800: "rgb(var(--tt-slate-800-rgb) / <alpha-value>)",
+                900: "rgb(var(--tt-slate-900-rgb) / <alpha-value>)",
+              },
+            },
+            fontFamily: {
+              mono: ["Cascadia Code", "Consolas", "SFMono-Regular", "Menlo", "monospace"],
+              serif: ["Cambria", "Iowan Old Style", "Georgia", "serif"],
+            },
+            borderRadius: {
+              full: "0.5rem",
+              "3xl": "0.75rem",
+              "2xl": "0.625rem",
+            },
+            boxShadow: {
+              glow: "0 1px 2px rgba(20, 45, 69, 0.12)",
             },
           },
         },
@@ -25,47 +50,68 @@
     </script>
     <link rel="stylesheet" href="../../assets/css/base.css" />
   </head>
-  <body class="min-h-screen bg-slate-50">
-    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
-      <header class="flex flex-wrap items-center justify-between gap-4">
-        <a
-          href="../../index.html"
-          class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-primary"
-        >
-          ← Back to toolkit
-        </a>
-        <div class="flex items-center gap-3">
-          <span class="tt-pill">Engineering</span>
-          <button
-            type="button"
-            data-theme-toggle
-            aria-pressed="false"
-            class="inline-flex items-center rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:text-primary"
-          >
-            <span data-theme-label>Switch to dark mode</span>
-          </button>
-        </div>
-      </header>
+  <body class="min-h-screen">
+    <div class="tt-sheet">
+      <div class="tt-sheet-corner" aria-hidden="true"></div>
+      <div class="tt-ruler-top" aria-hidden="true">
+        <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span>
+      </div>
+      <div class="tt-ruler-left" aria-hidden="true">
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+      </div>
 
-      <main class="tt-surface p-12 space-y-8">
-        <div class="text-center space-y-4">
-          <h1 class="text-3xl font-semibold text-dark">Engineering</h1>
-          <p class="text-slate-600 max-w-2xl mx-auto">
-            Resources, lesson ideas, and subject-specific content for teaching Engineering. New
-            materials will be added here as the site grows.
-          </p>
+      <div class="tt-sheet-content">
+        <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
+          <header class="flex flex-wrap items-center justify-between gap-4">
+            <a
+              href="../../index.html"
+              class="tt-nav-link inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wide text-slate-600 hover:text-primary"
+            >
+              ← Back to toolkit
+            </a>
+            <div class="flex items-center gap-3">
+              <span class="tt-pill">Engineering</span>
+              <button
+                type="button"
+                data-theme-toggle
+                aria-pressed="false"
+                class="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm font-mono font-semibold text-slate-700 hover:text-primary"
+              >
+                <span data-theme-label>Switch to dark mode</span>
+              </button>
+            </div>
+          </header>
+
+          <main class="tt-surface tt-frame-corners p-12 space-y-8">
+            <div class="text-center space-y-4">
+              <h1 class="font-serif font-normal text-3xl text-dark">Engineering</h1>
+              <p class="text-slate-600 max-w-2xl mx-auto">
+                Resources, lesson ideas, and subject-specific content for teaching Engineering. New
+                materials will be added here as the site grows.
+              </p>
+            </div>
+            <div class="rounded-2xl border border-dashed border-slate-300 p-8 text-center text-slate-500">
+              <p class="font-medium text-slate-600">Coming soon</p>
+              <p class="text-sm mt-1">Content and resources for Engineering are in development.</p>
+              <a
+                href="../../index.html#resources"
+                class="tt-nav-link w-fit inline-flex items-center gap-2 mt-4 font-semibold text-primary"
+              >
+                ← View all resources
+              </a>
+            </div>
+          </main>
+
+          <footer class="mt-8 pt-4">
+            <div class="tt-title-block">
+              <div class="cell"><span class="k">Project</span><span class="v">Practical Teacher Toolkit</span></div>
+              <div class="cell"><span class="k">Sheet</span><span class="v muted">Engineering</span></div>
+              <div class="cell"><span class="k">Rev</span><span class="v muted">2026.07</span></div>
+              <div class="cell"><span class="k">Status</span><span class="v muted">In development</span></div>
+            </div>
+          </footer>
         </div>
-        <div class="rounded-2xl border border-dashed border-slate-200 p-8 text-center text-slate-500">
-          <p class="font-medium text-slate-600">Coming soon</p>
-          <p class="text-sm mt-1">Content and resources for Engineering are in development.</p>
-          <a
-            href="../../index.html#resources"
-            class="inline-flex items-center gap-2 mt-4 font-semibold text-primary hover:gap-3 transition-all"
-          >
-            ← View all resources
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
     <div
       data-cookie-banner
@@ -79,7 +125,7 @@
           <h2 id="cookie-banner-title" class="text-sm font-semibold text-dark">Cookies & local storage</h2>
           <p id="cookie-banner-desc" class="text-sm text-slate-600 mt-0.5">
             This site uses local storage to save your preferences. No tracking cookies are used.
-            <a href="https://github.com/JFinn/Teacher-Toolkit" class="text-primary underline hover:no-underline">Learn more</a>.
+            <a href="https://github.com/JFinnTeacher/Teacher-Toolkit" class="text-primary underline hover:no-underline">Learn more</a>.
           </p>
         </div>
         <button type="button" data-cookie-accept class="shrink-0 rounded-full bg-primary px-6 py-2 text-sm font-semibold text-white shadow-glow hover:opacity-90">Accept</button>
