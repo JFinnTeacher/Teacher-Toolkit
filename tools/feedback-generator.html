@@ -16,8 +16,33 @@
         theme: {
           extend: {
             colors: {
-              primary: "#2563eb",
-              accent: "#f97316",
+              primary: "rgb(var(--tt-primary-rgb) / <alpha-value>)",
+              accent: "rgb(var(--tt-primary-rgb) / <alpha-value>)",
+              dark: "rgb(var(--tt-ink-rgb) / <alpha-value>)",
+              slate: {
+                50: "rgb(var(--tt-slate-50-rgb) / <alpha-value>)",
+                100: "rgb(var(--tt-slate-100-rgb) / <alpha-value>)",
+                200: "rgb(var(--tt-slate-200-rgb) / <alpha-value>)",
+                300: "rgb(var(--tt-slate-300-rgb) / <alpha-value>)",
+                400: "rgb(var(--tt-slate-400-rgb) / <alpha-value>)",
+                500: "rgb(var(--tt-slate-500-rgb) / <alpha-value>)",
+                600: "rgb(var(--tt-slate-600-rgb) / <alpha-value>)",
+                700: "rgb(var(--tt-slate-700-rgb) / <alpha-value>)",
+                800: "rgb(var(--tt-slate-800-rgb) / <alpha-value>)",
+                900: "rgb(var(--tt-slate-900-rgb) / <alpha-value>)",
+              },
+            },
+            fontFamily: {
+              mono: ["Cascadia Code", "Consolas", "SFMono-Regular", "Menlo", "monospace"],
+              serif: ["Cambria", "Iowan Old Style", "Georgia", "serif"],
+            },
+            borderRadius: {
+              full: "0.5rem",
+              "3xl": "0.75rem",
+              "2xl": "0.625rem",
+            },
+            boxShadow: {
+              glow: "0 1px 2px rgba(20, 45, 69, 0.12)",
             },
           },
         },
@@ -25,484 +50,505 @@
     </script>
     <link rel="stylesheet" href="../assets/css/base.css" />
   </head>
-  <body class="min-h-screen bg-slate-50">
-    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
-      <header class="flex flex-wrap items-center justify-between gap-4">
-        <a
-          href="../index.html"
-          class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-primary"
-        >
-          ← Back to toolkit
-        </a>
-        <div class="flex items-center gap-3">
-          <span class="tt-pill">Exam Feedback Generator</span>
-          <button
-            type="button"
-            data-theme-toggle
-            aria-pressed="false"
-            class="inline-flex items-center rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:text-primary"
-          >
-            <span data-theme-label>Switch to dark mode</span>
-          </button>
-        </div>
-      </header>
+  <body class="min-h-screen">
+    <div class="tt-sheet">
+      <div class="tt-sheet-corner" aria-hidden="true"></div>
+      <div class="tt-ruler-top" aria-hidden="true">
+        <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span>
+      </div>
+      <div class="tt-ruler-left" aria-hidden="true">
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+      </div>
 
-      <main class="tt-grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <section class="tt-surface p-8 space-y-6">
-          <div>
-            <h1 class="text-3xl font-semibold text-dark">Generate comments from exam marks</h1>
-            <p class="text-slate-600">
-              Upload a students CSV (names, gender, scores per element) and a comment bank CSV (mark
-              ranges and templates). The tool produces one combined written comment per student. All
-              processing happens in your browser—no data is sent to any server or third party. This
-              keeps student information local, making the tool GDPR compliant and safe for teachers
-              to use.
-            </p>
-          </div>
-
-          <div class="space-y-4">
-            <label class="block text-sm font-semibold text-slate-600">
-              Students CSV
-              <input
-                type="file"
-                id="students-file"
-                accept=".csv,text/csv,text/plain"
-                class="mt-2 w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
-              />
-            </label>
-            <label class="block text-sm font-semibold text-slate-600">
-              Comment bank CSV
-              <input
-                type="file"
-                id="commentbank-file"
-                accept=".csv,text/csv,text/plain"
-                class="mt-2 w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
-              />
-            </label>
-          </div>
-
-          <div id="preview-area" class="hidden rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-3">
-            <h2 class="text-lg font-semibold text-dark">Preview</h2>
-            <p id="preview-summary" class="text-sm text-slate-600"></p>
-            <p id="preview-elements" class="text-xs text-slate-500"></p>
-          </div>
-
-          <div class="flex flex-wrap gap-3">
-            <button
-              type="button"
-              id="generate-btn"
-              disabled
-              class="rounded-2xl bg-primary text-white font-semibold px-5 py-3 shadow-glow hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Generate feedback
-            </button>
+      <div class="tt-sheet-content">
+        <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
+          <header class="flex flex-wrap items-center justify-between gap-4">
             <a
-              href="#"
-              id="sample-students"
-              class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:text-primary"
-              download="sample-students.csv"
+              href="../index.html"
+              class="tt-nav-link inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wide text-slate-600 hover:text-primary"
             >
-              Download sample students CSV
+              ← Back to toolkit
             </a>
-            <a
-              href="#"
-              id="sample-commentbank"
-              class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:text-primary"
-              download="sample-commentbank.csv"
-            >
-              Download sample comment bank CSV
-            </a>
-          </div>
-
-          <p id="status" class="text-sm text-slate-500 min-h-[1.5rem]">
-            Load both CSV files to enable generation.
-          </p>
-        </section>
-
-        <aside class="tt-surface p-8 space-y-6">
-          <div>
-            <h2 class="text-2xl font-semibold text-dark">Results</h2>
-            <p class="text-slate-600 text-sm">
-              After generating, review the combined comment per student and download the results as
-              CSV.
-            </p>
-          </div>
-
-          <div id="results-area" class="hidden space-y-4">
-            <p id="results-summary" class="text-sm font-semibold text-primary"></p>
-            <div class="max-h-96 overflow-y-auto rounded-2xl border border-slate-200 divide-y divide-slate-100">
-              <div id="results-list" class="divide-y divide-slate-100"></div>
+            <div class="flex items-center gap-3">
+              <span class="tt-pill">Exam Feedback Generator</span>
+              <button
+                type="button"
+                data-theme-toggle
+                aria-pressed="false"
+                class="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm font-mono font-semibold text-slate-700 hover:text-primary"
+              >
+                <span data-theme-label>Switch to dark mode</span>
+              </button>
             </div>
-            <button
-              type="button"
-              id="download-btn"
-              class="w-full rounded-2xl bg-slate-900/90 text-white font-semibold py-3 hover:bg-slate-900"
-            >
-              Download results CSV
-            </button>
-          </div>
+          </header>
 
-          <div id="results-empty" class="rounded-2xl border border-dashed border-slate-200 p-6 text-center text-sm text-slate-500">
-            No results yet. Load both CSVs and click “Generate feedback”.
-          </div>
+          <main class="tt-grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+            <section class="tt-surface tt-frame-corners p-8 space-y-6">
+              <div>
+                <h1 class="font-serif font-normal text-3xl text-dark">Generate comments from exam marks</h1>
+                <p class="text-slate-600">
+                  Upload a students CSV (names, gender, scores per element) and a comment bank CSV (mark
+                  ranges and templates). The tool produces one combined written comment per student. All
+                  processing happens in your browser—no data is sent to any server or third party. This
+                  keeps student information local, making the tool GDPR compliant and safe for teachers
+                  to use.
+                </p>
+              </div>
 
-          <div class="text-sm text-slate-500 border border-slate-200 rounded-2xl p-4">
-            <strong class="text-dark">File formats:</strong> Students CSV needs columns
-            <code class="bg-slate-100 px-1 rounded">name</code>,
-            <code class="bg-slate-100 px-1 rounded">gender</code> (M/F), then score columns per
-            element. Comment bank needs <code class="bg-slate-100 px-1 rounded">element</code>,
-            <code class="bg-slate-100 px-1 rounded">min_marks</code>,
-            <code class="bg-slate-100 px-1 rounded">max_marks</code>,
-            <code class="bg-slate-100 px-1 rounded">comment_template</code>. Use placeholders
-            <code class="bg-slate-100 px-1 rounded">{name}</code>,
-            <code class="bg-slate-100 px-1 rounded">{score}</code>,
-            <code class="bg-slate-100 px-1 rounded">{percentage}</code>, and pronoun forms in
-            templates.
-          </div>
-        </aside>
-      </main>
+              <div class="space-y-4">
+                <label class="block text-sm font-semibold text-slate-600">
+                  Students CSV
+                  <input
+                    type="file"
+                    id="students-file"
+                    accept=".csv,text/csv,text/plain"
+                    class="mt-2 w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                  />
+                </label>
+                <label class="block text-sm font-semibold text-slate-600">
+                  Comment bank CSV
+                  <input
+                    type="file"
+                    id="commentbank-file"
+                    accept=".csv,text/csv,text/plain"
+                    class="mt-2 w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                  />
+                </label>
+              </div>
 
-      <section id="comment-bank-builder" class="tt-surface p-8 space-y-6">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold text-dark">Comment bank builder (optional)</h2>
-          <p class="text-slate-600 text-sm max-w-2xl">
-            Build a comment bank directly in the browser, then download it as CSV or load it into the
-            generator. This uses the same format as the Comment bank CSV file.
-          </p>
-          <div class="mt-2 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs text-amber-900">
-            <p class="font-semibold">Important:</p>
-            <p>
-              If you want to reuse this comment bank in future sessions or on another computer,
-              <span class="font-semibold">download the CSV and save it to a safe location</span> (e.g. your
-              documents or cloud storage).
-            </p>
-          </div>
-        </div>
+              <div id="preview-area" class="hidden rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-3">
+                <h2 class="text-lg font-semibold text-dark">Preview</h2>
+                <p id="preview-summary" class="text-sm text-slate-600"></p>
+                <p id="preview-elements" class="text-xs text-slate-500"></p>
+              </div>
 
-        <div class="grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-start">
-          <div class="space-y-3">
-            <div class="grid gap-3 md:grid-cols-4">
-              <label class="text-sm font-semibold text-slate-600 space-y-1 md:col-span-1">
-                Element
-                <input
-                  type="text"
-                  id="cb-element"
-                  class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
-                  placeholder="e.g. element1"
-                />
-              </label>
-              <label class="text-sm font-semibold text-slate-600 space-y-1">
-                Min marks
-                <input
-                  type="number"
-                  id="cb-min"
-                  min="0"
-                  class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
-                  placeholder="0"
-                />
-              </label>
-              <label class="text-sm font-semibold text-slate-600 space-y-1">
-                Max marks
-                <input
-                  type="number"
-                  id="cb-max"
-                  min="0"
-                  class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
-                  placeholder="20"
-                />
-              </label>
-              <label class="text-sm font-semibold text-slate-600 space-y-1 md:col-span-4">
-                Comment template
-                <textarea
-                  id="cb-template"
-                  rows="2"
-                  class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
-                  placeholder="Use placeholders like {name}, {score}, {max_score}, {percentage}..."
-                ></textarea>
-                <div class="mt-2 space-y-1 text-xs text-slate-500">
-                  <p class="font-semibold text-slate-600">Shortcode guide</p>
-                  <div class="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="space-x-1">
-                        <code class="bg-slate-100 px-1 rounded">{name}</code>
-                        <span>Student's first name</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
-                        data-shortcode-copy="{name}"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="space-x-1">
-                        <code class="bg-slate-100 px-1 rounded">{pronoun}</code>
-                        <span>he / she</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
-                        data-shortcode-copy="{pronoun}"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="space-x-1">
-                        <code class="bg-slate-100 px-1 rounded">{pronoun_cap}</code>
-                        <span>He / She</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
-                        data-shortcode-copy="{pronoun_cap}"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="space-x-1">
-                        <code class="bg-slate-100 px-1 rounded">{possessive}</code>
-                        <span>his / her</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
-                        data-shortcode-copy="{possessive}"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="space-x-1">
-                        <code class="bg-slate-100 px-1 rounded">{possessive_cap}</code>
-                        <span>His / Her</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
-                        data-shortcode-copy="{possessive_cap}"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="space-x-1">
-                        <code class="bg-slate-100 px-1 rounded">{object}</code>
-                        <span>him / her</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
-                        data-shortcode-copy="{object}"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="space-x-1">
-                        <code class="bg-slate-100 px-1 rounded">{score}</code>
-                        <span>Score for this element</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
-                        data-shortcode-copy="{score}"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="space-x-1">
-                        <code class="bg-slate-100 px-1 rounded">{max_score}</code>
-                        <span>Max marks for this element</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
-                        data-shortcode-copy="{max_score}"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="space-x-1">
-                        <code class="bg-slate-100 px-1 rounded">{percentage}</code>
-                        <span>Score as a percentage</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
-                        data-shortcode-copy="{percentage}"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                  </div>
-                  <p class="mt-2 text-[11px] text-slate-500">
-                    Limit: <span class="font-semibold">620 characters</span> per comment template.
-                    Characters used:
-                    <span id="cb-char-count" class="font-semibold text-slate-600">0</span>/620.
-                  </p>
+              <div class="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  id="generate-btn"
+                  disabled
+                  class="rounded-2xl bg-primary text-white font-semibold px-5 py-3 shadow-glow hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Generate feedback
+                </button>
+                <a
+                  href="#"
+                  id="sample-students"
+                  class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:text-primary"
+                  download="sample-students.csv"
+                >
+                  Download sample students CSV
+                </a>
+                <a
+                  href="#"
+                  id="sample-commentbank"
+                  class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:text-primary"
+                  download="sample-commentbank.csv"
+                >
+                  Download sample comment bank CSV
+                </a>
+              </div>
+
+              <p id="status" class="text-sm text-slate-500 min-h-[1.5rem]">
+                Load both CSV files to enable generation.
+              </p>
+            </section>
+
+            <aside class="tt-surface p-8 space-y-6">
+              <div>
+                <h2 class="text-2xl font-semibold text-dark">Results</h2>
+                <p class="text-slate-600 text-sm">
+                  After generating, review the combined comment per student and download the results as
+                  CSV.
+                </p>
+              </div>
+
+              <div id="results-area" class="hidden space-y-4">
+                <p id="results-summary" class="text-sm font-semibold text-primary"></p>
+                <div class="max-h-96 overflow-y-auto rounded-2xl border border-slate-200 divide-y divide-slate-100">
+                  <div id="results-list" class="divide-y divide-slate-100"></div>
                 </div>
-              </label>
-            </div>
-            <div class="flex flex-wrap gap-3 items-center">
-              <button
-                type="button"
-                id="cb-add-row"
-                class="rounded-full bg-primary text-white px-5 py-2 text-sm font-semibold shadow-glow hover:opacity-90"
-              >
-                Add row
-              </button>
-              <button
-                type="button"
-                id="cb-clear"
-                class="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 hover:text-primary"
-              >
-                Clear all
-              </button>
-              <p id="cb-status" class="text-xs text-slate-500 min-h-[1.25rem]"></p>
-            </div>
-          </div>
+                <button
+                  type="button"
+                  id="download-btn"
+                  class="w-full rounded-2xl bg-slate-900/90 text-white font-semibold py-3 hover:bg-slate-900"
+                >
+                  Download results CSV
+                </button>
+              </div>
 
-          <div class="space-y-3">
-            <div class="flex flex-wrap gap-2">
-              <button
-                type="button"
-                id="cb-download"
-                class="rounded-full bg-slate-900/90 text-white px-5 py-2 text-sm font-semibold hover:bg-slate-900"
-              >
-                Download comment bank CSV
-              </button>
-              <button
-                type="button"
-                id="cb-load"
-                class="rounded-full border border-primary/40 px-5 py-2 text-sm font-semibold text-primary bg-primary/5 hover:bg-primary/10"
-              >
-                Use in generator
-              </button>
+              <div id="results-empty" class="rounded-2xl border border-dashed border-slate-200 p-6 text-center text-sm text-slate-500">
+                No results yet. Load both CSVs and click “Generate feedback”.
+              </div>
+
+              <div class="text-sm text-slate-500 border border-slate-200 rounded-2xl p-4">
+                <strong class="text-dark">File formats:</strong> Students CSV needs columns
+                <code class="bg-slate-100 px-1 rounded">name</code>,
+                <code class="bg-slate-100 px-1 rounded">gender</code> (M/F), then score columns per
+                element. Comment bank needs <code class="bg-slate-100 px-1 rounded">element</code>,
+                <code class="bg-slate-100 px-1 rounded">min_marks</code>,
+                <code class="bg-slate-100 px-1 rounded">max_marks</code>,
+                <code class="bg-slate-100 px-1 rounded">comment_template</code>. Use placeholders
+                <code class="bg-slate-100 px-1 rounded">{name}</code>,
+                <code class="bg-slate-100 px-1 rounded">{score}</code>,
+                <code class="bg-slate-100 px-1 rounded">{percentage}</code>, and pronoun forms in
+                templates.
+              </div>
+            </aside>
+          </main>
+
+          <section id="comment-bank-builder" class="tt-surface p-8 space-y-6">
+            <div class="space-y-1">
+              <h2 class="text-2xl font-semibold text-dark">Comment bank builder (optional)</h2>
+              <p class="text-slate-600 text-sm max-w-2xl">
+                Build a comment bank directly in the browser, then download it as CSV or load it into the
+                generator. This uses the same format as the Comment bank CSV file.
+              </p>
+              <div class="mt-2 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs text-amber-900">
+                <p class="font-semibold">Important:</p>
+                <p>
+                  If you want to reuse this comment bank in future sessions or on another computer,
+                  <span class="font-semibold">download the CSV and save it to a safe location</span> (e.g. your
+                  documents or cloud storage).
+                </p>
+              </div>
             </div>
-            <div class="max-h-60 overflow-y-auto rounded-2xl border border-slate-200">
-              <table class="min-w-full text-xs md:text-sm">
-                <thead class="bg-slate-50 border-b border-slate-200">
-                  <tr>
-                    <th class="text-left px-3 py-2 font-semibold text-slate-600">Element</th>
-                    <th class="text-right px-3 py-2 font-semibold text-slate-600">Min</th>
-                    <th class="text-right px-3 py-2 font-semibold text-slate-600">Max</th>
-                    <th class="text-left px-3 py-2 font-semibold text-slate-600">Comment template</th>
-                    <th class="px-3 py-2"></th>
-                  </tr>
-                </thead>
-                <tbody id="cb-rows" class="divide-y divide-slate-100">
-                  <tr>
-                    <td colspan="5" class="px-3 py-3 text-center text-slate-500 italic">
-                      No rows yet. Add element ranges and comments, then download or load into the generator.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+
+            <div class="grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-start">
+              <div class="space-y-3">
+                <div class="grid gap-3 md:grid-cols-4">
+                  <label class="text-sm font-semibold text-slate-600 space-y-1 md:col-span-1">
+                    Element
+                    <input
+                      type="text"
+                      id="cb-element"
+                      class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                      placeholder="e.g. element1"
+                    />
+                  </label>
+                  <label class="text-sm font-semibold text-slate-600 space-y-1">
+                    Min marks
+                    <input
+                      type="number"
+                      id="cb-min"
+                      min="0"
+                      class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                      placeholder="0"
+                    />
+                  </label>
+                  <label class="text-sm font-semibold text-slate-600 space-y-1">
+                    Max marks
+                    <input
+                      type="number"
+                      id="cb-max"
+                      min="0"
+                      class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                      placeholder="20"
+                    />
+                  </label>
+                  <label class="text-sm font-semibold text-slate-600 space-y-1 md:col-span-4">
+                    Comment template
+                    <textarea
+                      id="cb-template"
+                      rows="2"
+                      class="w-full rounded-2xl border-slate-200 focus:border-primary focus:ring-primary text-sm"
+                      placeholder="Use placeholders like {name}, {score}, {max_score}, {percentage}..."
+                    ></textarea>
+                    <div class="mt-2 space-y-1 text-xs text-slate-500">
+                      <p class="font-semibold text-slate-600">Shortcode guide</p>
+                      <div class="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
+                        <div class="flex items-center justify-between gap-2">
+                          <div class="space-x-1">
+                            <code class="bg-slate-100 px-1 rounded">{name}</code>
+                            <span>Student's first name</span>
+                          </div>
+                          <button
+                            type="button"
+                            class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                            data-shortcode-copy="{name}"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                          <div class="space-x-1">
+                            <code class="bg-slate-100 px-1 rounded">{pronoun}</code>
+                            <span>he / she</span>
+                          </div>
+                          <button
+                            type="button"
+                            class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                            data-shortcode-copy="{pronoun}"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                          <div class="space-x-1">
+                            <code class="bg-slate-100 px-1 rounded">{pronoun_cap}</code>
+                            <span>He / She</span>
+                          </div>
+                          <button
+                            type="button"
+                            class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                            data-shortcode-copy="{pronoun_cap}"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                          <div class="space-x-1">
+                            <code class="bg-slate-100 px-1 rounded">{possessive}</code>
+                            <span>his / her</span>
+                          </div>
+                          <button
+                            type="button"
+                            class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                            data-shortcode-copy="{possessive}"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                          <div class="space-x-1">
+                            <code class="bg-slate-100 px-1 rounded">{possessive_cap}</code>
+                            <span>His / Her</span>
+                          </div>
+                          <button
+                            type="button"
+                            class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                            data-shortcode-copy="{possessive_cap}"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                          <div class="space-x-1">
+                            <code class="bg-slate-100 px-1 rounded">{object}</code>
+                            <span>him / her</span>
+                          </div>
+                          <button
+                            type="button"
+                            class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                            data-shortcode-copy="{object}"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                          <div class="space-x-1">
+                            <code class="bg-slate-100 px-1 rounded">{score}</code>
+                            <span>Score for this element</span>
+                          </div>
+                          <button
+                            type="button"
+                            class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                            data-shortcode-copy="{score}"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                          <div class="space-x-1">
+                            <code class="bg-slate-100 px-1 rounded">{max_score}</code>
+                            <span>Max marks for this element</span>
+                          </div>
+                          <button
+                            type="button"
+                            class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                            data-shortcode-copy="{max_score}"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                          <div class="space-x-1">
+                            <code class="bg-slate-100 px-1 rounded">{percentage}</code>
+                            <span>Score as a percentage</span>
+                          </div>
+                          <button
+                            type="button"
+                            class="rounded-full border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-600 hover:text-primary"
+                            data-shortcode-copy="{percentage}"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                      </div>
+                      <p class="mt-2 text-[11px] text-slate-500">
+                        Limit: <span class="font-semibold">620 characters</span> per comment template.
+                        Characters used:
+                        <span id="cb-char-count" class="font-semibold text-slate-600">0</span>/620.
+                      </p>
+                    </div>
+                  </label>
+                </div>
+                <div class="flex flex-wrap gap-3 items-center">
+                  <button
+                    type="button"
+                    id="cb-add-row"
+                    class="rounded-full bg-primary text-white px-5 py-2 text-sm font-semibold shadow-glow hover:opacity-90"
+                  >
+                    Add row
+                  </button>
+                  <button
+                    type="button"
+                    id="cb-clear"
+                    class="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 hover:text-primary"
+                  >
+                    Clear all
+                  </button>
+                  <p id="cb-status" class="text-xs text-slate-500 min-h-[1.25rem]"></p>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    id="cb-download"
+                    class="rounded-full bg-slate-900/90 text-white px-5 py-2 text-sm font-semibold hover:bg-slate-900"
+                  >
+                    Download comment bank CSV
+                  </button>
+                  <button
+                    type="button"
+                    id="cb-load"
+                    class="rounded-full border border-primary/40 px-5 py-2 text-sm font-semibold text-primary bg-primary/5 hover:bg-primary/10"
+                  >
+                    Use in generator
+                  </button>
+                </div>
+                <div class="max-h-60 overflow-y-auto rounded-2xl border border-slate-200">
+                  <table class="min-w-full text-xs md:text-sm">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                      <tr>
+                        <th class="text-left px-3 py-2 font-semibold text-slate-600">Element</th>
+                        <th class="text-right px-3 py-2 font-semibold text-slate-600">Min</th>
+                        <th class="text-right px-3 py-2 font-semibold text-slate-600">Max</th>
+                        <th class="text-left px-3 py-2 font-semibold text-slate-600">Comment template</th>
+                        <th class="px-3 py-2"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="cb-rows" class="divide-y divide-slate-100">
+                      <tr>
+                        <td colspan="5" class="px-3 py-3 text-center text-slate-500 italic">
+                          No rows yet. Add element ranges and comments, then download or load into the generator.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      <section class="tt-surface p-8 space-y-8 mt-12">
-        <h2 class="text-2xl font-semibold text-dark">How to use this tool</h2>
+          <section class="tt-surface p-8 space-y-8 mt-12">
+            <h2 class="text-2xl font-semibold text-dark">How to use this tool</h2>
 
-        <div class="space-y-6 prose prose-slate max-w-none">
-          <div>
-            <h3 class="text-lg font-semibold text-dark mb-2">1. Prepare your files</h3>
-            <p class="text-slate-600">
-              You need two CSV files: a <strong>Students CSV</strong> (your class roster with marks per exam element) and a
-              <strong>Comment bank CSV</strong> (templates that describe what to write for each mark range). Use the sample
-              downloads above to see the expected format, or create your own from scratch.
-            </p>
-          </div>
+            <div class="space-y-6 prose prose-slate max-w-none">
+              <div>
+                <h3 class="text-lg font-semibold text-dark mb-2">1. Prepare your files</h3>
+                <p class="text-slate-600">
+                  You need two CSV files: a <strong>Students CSV</strong> (your class roster with marks per exam element) and a
+                  <strong>Comment bank CSV</strong> (templates that describe what to write for each mark range). Use the sample
+                  downloads above to see the expected format, or create your own from scratch.
+                </p>
+              </div>
 
-          <div>
-            <h3 class="text-lg font-semibold text-dark mb-2">2. Students CSV format</h3>
-            <p class="text-slate-600 mb-2">Your students file must have:</p>
-            <ul class="list-disc pl-6 text-slate-600 space-y-1 mb-3">
-              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">name</code> — Student’s name (used in placeholders)</li>
-              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">gender</code> — <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">M</code> or <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">F</code> (for pronoun placeholders)</li>
-              <li>One or more score columns — Column names must match the <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">element</code> names in your comment bank</li>
-            </ul>
-            <p class="text-slate-600 mb-2"><strong>Example:</strong></p>
-            <pre class="bg-slate-100 rounded-xl p-4 text-sm overflow-x-auto"><code>name,gender,element1,element2,element3
+              <div>
+                <h3 class="text-lg font-semibold text-dark mb-2">2. Students CSV format</h3>
+                <p class="text-slate-600 mb-2">Your students file must have:</p>
+                <ul class="list-disc pl-6 text-slate-600 space-y-1 mb-3">
+                  <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">name</code> — Student’s name (used in placeholders)</li>
+                  <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">gender</code> — <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">M</code> or <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">F</code> (for pronoun placeholders)</li>
+                  <li>One or more score columns — Column names must match the <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">element</code> names in your comment bank</li>
+                </ul>
+                <p class="text-slate-600 mb-2"><strong>Example:</strong></p>
+                <pre class="bg-slate-100 rounded-xl p-4 text-sm overflow-x-auto"><code>name,gender,element1,element2,element3
 John Smith,M,17,36,45
 Sarah Jones,F,13,44,35
 Alex Brown,M,15,40,38</code></pre>
-            <p class="text-slate-600 mt-2 text-sm">
-              Here, <code class="bg-slate-100 px-1 rounded">element1</code>, <code class="bg-slate-100 px-1 rounded">element2</code>, and <code class="bg-slate-100 px-1 rounded">element3</code> are the exam elements. Their names must match exactly the <code class="bg-slate-100 px-1 rounded">element</code> column in the comment bank.
-            </p>
-          </div>
+                <p class="text-slate-600 mt-2 text-sm">
+                  Here, <code class="bg-slate-100 px-1 rounded">element1</code>, <code class="bg-slate-100 px-1 rounded">element2</code>, and <code class="bg-slate-100 px-1 rounded">element3</code> are the exam elements. Their names must match exactly the <code class="bg-slate-100 px-1 rounded">element</code> column in the comment bank.
+                </p>
+              </div>
 
-          <div>
-            <h3 class="text-lg font-semibold text-dark mb-2">3. Comment bank CSV format</h3>
-            <p class="text-slate-600 mb-2">Your comment bank must have these columns:</p>
-            <ul class="list-disc pl-6 text-slate-600 space-y-1 mb-3">
-              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">element</code> — Matches the score column name in the students CSV</li>
-              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">min_marks</code> — Minimum score (inclusive) for this comment</li>
-              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">max_marks</code> — Maximum score (inclusive) for this comment</li>
-              <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">comment_template</code> — The text to use, with placeholders</li>
-            </ul>
-            <p class="text-slate-600 mb-2">
-              For each student, the tool looks up each score column, finds the comment bank row where <code class="bg-slate-100 px-1 rounded">element</code> matches and the score falls between <code class="bg-slate-100 px-1 rounded">min_marks</code> and <code class="bg-slate-100 px-1 rounded">max_marks</code>, then replaces placeholders in the template. If multiple rows match (overlapping ranges), the first match is used.
-            </p>
-            <p class="text-slate-600 mb-2"><strong>Example:</strong></p>
-            <pre class="bg-slate-100 rounded-xl p-4 text-sm overflow-x-auto"><code>element,min_marks,max_marks,comment_template
+              <div>
+                <h3 class="text-lg font-semibold text-dark mb-2">3. Comment bank CSV format</h3>
+                <p class="text-slate-600 mb-2">Your comment bank must have these columns:</p>
+                <ul class="list-disc pl-6 text-slate-600 space-y-1 mb-3">
+                  <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">element</code> — Matches the score column name in the students CSV</li>
+                  <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">min_marks</code> — Minimum score (inclusive) for this comment</li>
+                  <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">max_marks</code> — Maximum score (inclusive) for this comment</li>
+                  <li><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm">comment_template</code> — The text to use, with placeholders</li>
+                </ul>
+                <p class="text-slate-600 mb-2">
+                  For each student, the tool looks up each score column, finds the comment bank row where <code class="bg-slate-100 px-1 rounded">element</code> matches and the score falls between <code class="bg-slate-100 px-1 rounded">min_marks</code> and <code class="bg-slate-100 px-1 rounded">max_marks</code>, then replaces placeholders in the template. If multiple rows match (overlapping ranges), the first match is used.
+                </p>
+                <p class="text-slate-600 mb-2"><strong>Example:</strong></p>
+                <pre class="bg-slate-100 rounded-xl p-4 text-sm overflow-x-auto"><code>element,min_marks,max_marks,comment_template
 element1,0,10,{name} struggled with this component. {pronoun_cap} needs to focus on revision.
 element1,11,14,{name} showed some understanding. {pronoun_cap} should work on weaker areas.
 element1,15,17,{name} demonstrated a good grasp. {pronoun_cap} effectively applied the concepts.
 element1,18,20,{name} excelled in this area. {possessive_cap} work was outstanding.</code></pre>
-          </div>
+              </div>
 
-          <div>
-            <h3 class="text-lg font-semibold text-dark mb-2">4. Placeholders in templates</h3>
-            <p class="text-slate-600 mb-2">Use these inside <code class="bg-slate-100 px-1 rounded">comment_template</code>; they are replaced automatically:</p>
-            <div class="overflow-x-auto">
-              <table class="min-w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
-                <thead class="bg-slate-100">
-                  <tr>
-                    <th class="text-left px-4 py-2 font-semibold text-dark">Placeholder</th>
-                    <th class="text-left px-4 py-2 font-semibold text-dark">Example output (M)</th>
-                    <th class="text-left px-4 py-2 font-semibold text-dark">Example output (F)</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-200">
-                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{name}</code></td><td>John Smith</td><td>Sarah Jones</td></tr>
-                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{pronoun}</code></td><td>he</td><td>she</td></tr>
-                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{pronoun_cap}</code></td><td>He</td><td>She</td></tr>
-                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{possessive}</code></td><td>his</td><td>her</td></tr>
-                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{possessive_cap}</code></td><td>His</td><td>Her</td></tr>
-                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{object}</code></td><td>him</td><td>her</td></tr>
-                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{score}</code></td><td colspan="2">The score for that element (e.g. 17)</td></tr>
-                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{max_score}</code></td><td colspan="2">Max marks for that element (e.g. 20)</td></tr>
-                  <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{percentage}</code></td><td colspan="2">Score as a percentage (e.g. 85.0)</td></tr>
-                </tbody>
-              </table>
+              <div>
+                <h3 class="text-lg font-semibold text-dark mb-2">4. Placeholders in templates</h3>
+                <p class="text-slate-600 mb-2">Use these inside <code class="bg-slate-100 px-1 rounded">comment_template</code>; they are replaced automatically:</p>
+                <div class="overflow-x-auto">
+                  <table class="min-w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
+                    <thead class="bg-slate-100">
+                      <tr>
+                        <th class="text-left px-4 py-2 font-semibold text-dark">Placeholder</th>
+                        <th class="text-left px-4 py-2 font-semibold text-dark">Example output (M)</th>
+                        <th class="text-left px-4 py-2 font-semibold text-dark">Example output (F)</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                      <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{name}</code></td><td>John Smith</td><td>Sarah Jones</td></tr>
+                      <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{pronoun}</code></td><td>he</td><td>she</td></tr>
+                      <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{pronoun_cap}</code></td><td>He</td><td>She</td></tr>
+                      <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{possessive}</code></td><td>his</td><td>her</td></tr>
+                      <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{possessive_cap}</code></td><td>His</td><td>Her</td></tr>
+                      <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{object}</code></td><td>him</td><td>her</td></tr>
+                      <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{score}</code></td><td colspan="2">The score for that element (e.g. 17)</td></tr>
+                      <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{max_score}</code></td><td colspan="2">Max marks for that element (e.g. 20)</td></tr>
+                      <tr><td class="px-4 py-2"><code class="bg-slate-100 px-1 rounded">{percentage}</code></td><td colspan="2">Score as a percentage (e.g. 85.0)</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="text-lg font-semibold text-dark mb-2">5. Generate and download</h3>
+                <p class="text-slate-600">
+                  After both files are loaded, click <strong>Generate feedback</strong>. The tool combines one comment per exam element into a single paragraph per student. Use <strong>Download results CSV</strong> to save the output. The results CSV includes the combined comment plus per-element scores and percentages for your records.
+                </p>
+              </div>
+
+              <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <p class="font-semibold text-dark mb-1">Tips</p>
+                <ul class="list-disc pl-6 text-slate-600 text-sm space-y-1">
+                  <li>Keep element names identical between the students CSV and comment bank (e.g. <code class="bg-slate-200 px-1 rounded">element1</code> in both).</li>
+                  <li>Ensure mark ranges cover all possible scores so every student gets a comment for each element.</li>
+                  <li>Use quoted fields in CSV if your text contains commas: <code class="bg-slate-200 px-1 rounded">"Smith, John"</code>.</li>
+                </ul>
+              </div>
             </div>
-          </div>
+          </section>
 
-          <div>
-            <h3 class="text-lg font-semibold text-dark mb-2">5. Generate and download</h3>
-            <p class="text-slate-600">
-              After both files are loaded, click <strong>Generate feedback</strong>. The tool combines one comment per exam element into a single paragraph per student. Use <strong>Download results CSV</strong> to save the output. The results CSV includes the combined comment plus per-element scores and percentages for your records.
-            </p>
-          </div>
-
-          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
-            <p class="font-semibold text-dark mb-1">Tips</p>
-            <ul class="list-disc pl-6 text-slate-600 text-sm space-y-1">
-              <li>Keep element names identical between the students CSV and comment bank (e.g. <code class="bg-slate-200 px-1 rounded">element1</code> in both).</li>
-              <li>Ensure mark ranges cover all possible scores so every student gets a comment for each element.</li>
-              <li>Use quoted fields in CSV if your text contains commas: <code class="bg-slate-200 px-1 rounded">"Smith, John"</code>.</li>
-            </ul>
-          </div>
+          <footer class="mt-12 pt-4">
+            <div class="tt-title-block">
+              <div class="cell"><span class="k">Project</span><span class="v">Practical Teacher Toolkit</span></div>
+              <div class="cell"><span class="k">Sheet</span><span class="v muted">Exam Feedback Generator</span></div>
+              <div class="cell"><span class="k">Rev</span><span class="v muted">2026.07</span></div>
+              <div class="cell"><span class="k">Runs</span><span class="v muted">Client-side only</span></div>
+            </div>
+          </footer>
         </div>
-      </section>
+      </div>
     </div>
     <div
       data-cookie-banner
@@ -520,7 +566,7 @@ element1,18,20,{name} excelled in this area. {possessive_cap} work was outstandi
             from external servers. No tracking cookies or analytics are used. By continuing, you
             accept this use. Your data remains in your browser and is not uploaded to any third
             party. See our
-            <a href="https://github.com/JFinn/Teacher-Toolkit" class="text-primary underline hover:no-underline">GitHub repository</a>
+            <a href="https://github.com/JFinnTeacher/Teacher-Toolkit" class="text-primary underline hover:no-underline">GitHub repository</a>
             for full details.
           </p>
         </div>

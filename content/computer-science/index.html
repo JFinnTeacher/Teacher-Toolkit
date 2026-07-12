@@ -16,8 +16,33 @@
         theme: {
           extend: {
             colors: {
-              primary: "#2563eb",
-              accent: "#f97316",
+              primary: "rgb(var(--tt-primary-rgb) / <alpha-value>)",
+              accent: "rgb(var(--tt-primary-rgb) / <alpha-value>)",
+              dark: "rgb(var(--tt-ink-rgb) / <alpha-value>)",
+              slate: {
+                50: "rgb(var(--tt-slate-50-rgb) / <alpha-value>)",
+                100: "rgb(var(--tt-slate-100-rgb) / <alpha-value>)",
+                200: "rgb(var(--tt-slate-200-rgb) / <alpha-value>)",
+                300: "rgb(var(--tt-slate-300-rgb) / <alpha-value>)",
+                400: "rgb(var(--tt-slate-400-rgb) / <alpha-value>)",
+                500: "rgb(var(--tt-slate-500-rgb) / <alpha-value>)",
+                600: "rgb(var(--tt-slate-600-rgb) / <alpha-value>)",
+                700: "rgb(var(--tt-slate-700-rgb) / <alpha-value>)",
+                800: "rgb(var(--tt-slate-800-rgb) / <alpha-value>)",
+                900: "rgb(var(--tt-slate-900-rgb) / <alpha-value>)",
+              },
+            },
+            fontFamily: {
+              mono: ["Cascadia Code", "Consolas", "SFMono-Regular", "Menlo", "monospace"],
+              serif: ["Cambria", "Iowan Old Style", "Georgia", "serif"],
+            },
+            borderRadius: {
+              full: "0.5rem",
+              "3xl": "0.75rem",
+              "2xl": "0.625rem",
+            },
+            boxShadow: {
+              glow: "0 1px 2px rgba(20, 45, 69, 0.12)",
             },
           },
         },
@@ -25,107 +50,128 @@
     </script>
     <link rel="stylesheet" href="../../assets/css/base.css" />
   </head>
-  <body class="min-h-screen bg-slate-50">
-    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
-      <header class="flex flex-wrap items-center justify-between gap-4">
-        <a
-          href="../../index.html"
-          class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-primary"
-        >
-          ← Back to toolkit
-        </a>
-        <div class="flex items-center gap-3">
-          <span class="tt-pill">Computer Science</span>
-          <button
-            type="button"
-            data-theme-toggle
-            aria-pressed="false"
-            class="inline-flex items-center rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:text-primary"
-          >
-            <span data-theme-label>Switch to dark mode</span>
-          </button>
-        </div>
-      </header>
+  <body class="min-h-screen">
+    <div class="tt-sheet">
+      <div class="tt-sheet-corner" aria-hidden="true"></div>
+      <div class="tt-ruler-top" aria-hidden="true">
+        <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span>
+      </div>
+      <div class="tt-ruler-left" aria-hidden="true">
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+      </div>
 
-      <main class="tt-surface p-12 space-y-8">
-        <div class="text-center space-y-4">
-          <h1 class="text-3xl font-semibold text-dark">Computer Science</h1>
-          <p class="text-slate-600 max-w-2xl mx-auto">
-              This is a collection of resources, lesson ideas, and subject-specific content for teaching Computer Science at
-            Junior and Leaving Certificate level. More materials will be added here over time.<br>
-            Use the tag filter below to find resources relevant to specific CS topics, or browse all materials in the "All" category.
-          </p>
-        </div>
-
-        <section class="space-y-6">
-
-          <!-- Tag filter -->
-          <div id="tag-filter" class="flex flex-wrap gap-2">
-            <button
-              data-tag="all"
-              class="tag-btn inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold bg-primary text-white transition-colors"
-            >All</button>
-            <button
-              data-tag="General"
-              class="tag-btn inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-primary hover:text-white transition-colors"
-            >General</button>
-          </div>
-
-          <!-- Resource cards -->
-          <div id="resource-grid" class="tt-grid gap-6 md:grid-cols-2">
-            <article data-tags="General" class="tt-surface tt-card-outline p-6 flex flex-col gap-3">
-              <div class="tt-pill w-fit">General</div>
-              <h2 class="text-xl font-semibold text-dark">Useful Links</h2>
-              <p class="text-slate-600 text-sm flex-1">
-                A curated library of tools, resources, and references for CS — covering IDEs,
-                Python, networking, AI, data sources, logic gates, and more.
-              </p>
-              <a
-                href="./useful-links.html"
-                class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
+      <div class="tt-sheet-content">
+        <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
+          <header class="flex flex-wrap items-center justify-between gap-4">
+            <a
+              href="../../index.html"
+              class="tt-nav-link inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wide text-slate-600 hover:text-primary"
+            >
+              ← Back to toolkit
+            </a>
+            <div class="flex items-center gap-3">
+              <span class="tt-pill">Computer Science</span>
+              <button
+                type="button"
+                data-theme-toggle
+                aria-pressed="false"
+                class="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm font-mono font-semibold text-slate-700 hover:text-primary"
               >
-                Open resource
-                <span aria-hidden="true">→</span>
-              </a>
-            </article>
-          </div>
+                <span data-theme-label>Switch to dark mode</span>
+              </button>
+            </div>
+          </header>
 
-          <p id="no-results" class="hidden text-sm text-slate-400 italic text-center">No resources match this filter.</p>
+          <main class="tt-surface tt-frame-corners p-8 md:p-12 space-y-8">
+            <div class="text-center space-y-4">
+              <h1 class="font-serif font-normal text-3xl text-dark">Computer Science</h1>
+              <p class="text-slate-600 max-w-2xl mx-auto">
+                  This is a collection of resources, lesson ideas, and subject-specific content for teaching Computer Science at
+                Junior and Leaving Certificate level. More materials will be added here over time.<br>
+                Use the tag filter below to find resources relevant to specific CS topics, or browse all materials in the "All" category.
+              </p>
+            </div>
 
-          <p class="text-xs text-slate-500 text-center">
-            More Computer Science resources will be added here over time.
-          </p>
-        </section>
+            <section class="space-y-6">
 
-        <script>
-          const cards = document.querySelectorAll('#resource-grid [data-tags]');
-          const buttons = document.querySelectorAll('.tag-btn');
-          const noResults = document.getElementById('no-results');
+              <!-- Tag filter -->
+              <div id="tag-filter" class="flex flex-wrap gap-2">
+                <button
+                  data-tag="all"
+                  class="tag-btn inline-flex items-center rounded-md px-3 py-1.5 text-xs font-mono uppercase tracking-wide font-semibold bg-primary text-white transition-colors"
+                >All</button>
+                <button
+                  data-tag="General"
+                  class="tag-btn inline-flex items-center rounded-md px-3 py-1.5 text-xs font-mono uppercase tracking-wide font-semibold bg-slate-100 text-slate-700 hover:bg-primary hover:text-white transition-colors"
+                >General</button>
+              </div>
 
-          buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-              const tag = btn.dataset.tag;
+              <!-- Resource cards -->
+              <div id="resource-grid" class="tt-grid gap-6 md:grid-cols-2">
+                <article data-tags="General" class="tt-surface p-6 flex flex-col gap-3">
+                  <div class="tt-pill w-fit">General</div>
+                  <h2 class="text-xl font-semibold text-dark">Useful Links</h2>
+                  <p class="text-slate-600 text-sm flex-1">
+                    A curated library of tools, resources, and references for CS — covering IDEs,
+                    Python, networking, AI, data sources, logic gates, and more.
+                  </p>
+                  <a
+                    href="./useful-links.html"
+                    class="tt-nav-link w-fit inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                  >
+                    Open resource
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </article>
+              </div>
 
-              buttons.forEach(b => {
-                b.classList.remove('bg-primary', 'text-white');
-                b.classList.add('bg-slate-100', 'text-slate-700');
+              <p id="no-results" class="hidden text-sm text-slate-400 italic text-center">No resources match this filter.</p>
+
+              <p class="text-xs text-slate-500 text-center">
+                More Computer Science resources will be added here over time.
+              </p>
+            </section>
+
+            <script>
+              const cards = document.querySelectorAll('#resource-grid [data-tags]');
+              const buttons = document.querySelectorAll('.tag-btn');
+              const noResults = document.getElementById('no-results');
+
+              buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                  const tag = btn.dataset.tag;
+
+                  buttons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-white');
+                    b.classList.add('bg-slate-100', 'text-slate-700');
+                  });
+                  btn.classList.add('bg-primary', 'text-white');
+                  btn.classList.remove('bg-slate-100', 'text-slate-700');
+
+                  let visible = 0;
+                  cards.forEach(card => {
+                    const tags = card.dataset.tags.split(',').map(t => t.trim());
+                    const show = tag === 'all' || tags.includes(tag);
+                    card.style.display = show ? '' : 'none';
+                    if (show) visible++;
+                  });
+
+                  noResults.classList.toggle('hidden', visible > 0);
+                });
               });
-              btn.classList.add('bg-primary', 'text-white');
-              btn.classList.remove('bg-slate-100', 'text-slate-700');
+            </script>
+          </main>
 
-              let visible = 0;
-              cards.forEach(card => {
-                const tags = card.dataset.tags.split(',').map(t => t.trim());
-                const show = tag === 'all' || tags.includes(tag);
-                card.style.display = show ? '' : 'none';
-                if (show) visible++;
-              });
-
-              noResults.classList.toggle('hidden', visible > 0);
-            });
-          });
-        </script>
-      </main>
+          <footer class="mt-8 pt-4">
+            <div class="tt-title-block">
+              <div class="cell"><span class="k">Project</span><span class="v">Practical Teacher Toolkit</span></div>
+              <div class="cell"><span class="k">Sheet</span><span class="v muted">Computer Science</span></div>
+              <div class="cell"><span class="k">Rev</span><span class="v muted">2026.07</span></div>
+              <div class="cell"><span class="k">Level</span><span class="v muted">JC &amp; LC</span></div>
+            </div>
+          </footer>
+        </div>
+      </div>
     </div>
     <div
       data-cookie-banner
@@ -139,7 +185,7 @@
           <h2 id="cookie-banner-title" class="text-sm font-semibold text-dark">Cookies & local storage</h2>
           <p id="cookie-banner-desc" class="text-sm text-slate-600 mt-0.5">
             This site uses local storage to save your preferences. No tracking cookies are used.
-            <a href="https://github.com/JFinn/Teacher-Toolkit" class="text-primary underline hover:no-underline">Learn more</a>.
+            <a href="https://github.com/JFinnTeacher/Teacher-Toolkit" class="text-primary underline hover:no-underline">Learn more</a>.
           </p>
         </div>
         <button type="button" data-cookie-accept class="shrink-0 rounded-full bg-primary px-6 py-2 text-sm font-semibold text-white shadow-glow hover:opacity-90">Accept</button>
